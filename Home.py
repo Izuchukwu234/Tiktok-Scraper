@@ -40,21 +40,21 @@ st.markdown("""
 # --- LOGO & TITLE ---
 st.image("komi_logo.png", width=100)
 st.title("KOMI Scraper Tool")
-st.caption("Built for internal use by the KOMI Group • Version 1.0")
+st.caption("Built for internal use by the KOMI Group")
 st.markdown('<div class="header-divider"></div>', unsafe_allow_html=True)
 
 # --- CONTENT ---
 st.markdown("""
 Welcome to the **KOMI Scraper Tool** – a unified platform to extract social media content from various platforms like:
 
-- TikTok ✅ (fully functional)
+- TikTok ✅ (Finished first phase of development)
 - Instagram 🕐
 - YouTube 🕐
 - Threads 🕐
 - Snapchat 🕐
 - Twitter 🕐
 
-Use the navigation menu (☰) on the top-left to switch between platform pages or to view how we collect data.
+Use the navigation menu (☰) on the top-left to switch between platform pages.
 
 ---
 
