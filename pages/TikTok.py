@@ -70,19 +70,6 @@ st.caption("Powered by KOMI Group · Built for the Ark Media Team.")
 st.markdown('<div class="header-divider"></div>', unsafe_allow_html=True)
 st.markdown('<div style="height: 50px;"></div>', unsafe_allow_html=True)
 
-# # --- HEADER ---
-# st.image("komi_logo.png", width=100)
-
-# st.markdown("""
-# <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
-#     <img src="tiktok_logo.png" alt="TikTok Logo" width="36">
-#     <h1 style="margin: 0;">TikTok Scraper</h1>
-# </div>
-# """, unsafe_allow_html=True)
-
-# st.caption("Powered by KOMI Group · Built for the Ark Media Team.")
-# st.markdown('<div class="header-divider"></div>', unsafe_allow_html=True)
-# st.markdown('<div style="height: 50px;"></div>', unsafe_allow_html=True)
 
 # --- DOWNLOAD FORMAT SELECTION ---
 download_format = st.selectbox("Select download format", ["CSV", "XLSX", "TXT", "HTML", "JSON"])
