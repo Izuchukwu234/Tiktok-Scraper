@@ -11,7 +11,7 @@ st.markdown("""
 
 We use the **EnsembleData API**, a third-party enterprise-grade provider, to **fetch publicly available social media data**. Our system does **not directly scrape websites**, but instead relies on secure and compliant API access to retrieve:
 
-- Publicly available TikTok post metrics
+- Publicly available social media post metrics
 - Metadata for content like captions, hashtags, view counts
 - User-facing share links
 - Historical data based on hashtags, usernames, or keywords
