@@ -65,7 +65,14 @@ if 'scraped_df' not in st.session_state:
 
 # --- HEADER ---
 st.image("komi_logo.png", width=100)
-st.title("TikTok Scraper")
+
+st.markdown("""
+<div style="display: flex; align-items: center; gap: 10px;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/TikTok_logo.svg" width="36">
+    <h1 style="margin: 0;">TikTok Scraper</h1>
+</div>
+""", unsafe_allow_html=True)
+
 st.caption("Powered by KOMI Group · Built for the Ark Media Team.")
 st.markdown('<div class="header-divider"></div>', unsafe_allow_html=True)
 st.markdown('<div style="height: 50px;"></div>', unsafe_allow_html=True)
