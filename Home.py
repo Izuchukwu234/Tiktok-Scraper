@@ -58,7 +58,7 @@ Use the navigation menu (>) on the top-left to switch between platform pages.
 
 ---
 
-🚧 **Note**: This application is intended **only for internal use by KOMI Group**. Unauthorized access or distribution is prohibited.
+🚧 **Note**: This application is intended **only for internal use by KOMI Group**. Unauthorised access or distribution is prohibited.
 
 """)
 
