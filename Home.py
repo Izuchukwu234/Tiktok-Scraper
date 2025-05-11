@@ -54,7 +54,7 @@ Welcome to the **KOMI Scraper Tool** – a unified platform to extract social me
 - Snapchat 🕐
 - Twitter 🕐
 
-Use the navigation menu (☰) on the top-left to switch between platform pages.
+Use the navigation menu (>) on the top-left to switch between platform pages.
 
 ---
 
