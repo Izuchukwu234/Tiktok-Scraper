@@ -68,7 +68,7 @@ st.image("komi_logo.png", width=100)
 
 st.markdown("""
 <div style="display: flex; align-items: center; gap: 10px;">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/TikTok_logo.svg" width="36">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/TikTok_logo.svg" width="36">
     <h1 style="margin: 0;">TikTok Scraper</h1>
 </div>
 """, unsafe_allow_html=True)
