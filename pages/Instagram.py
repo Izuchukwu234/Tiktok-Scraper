@@ -3,7 +3,12 @@ import streamlit as st
 st.set_page_config(page_title="Instagram Scraper | KOMI Group", page_icon="📸")
 
 st.image("komi_logo.png", width=100)
-st.title("Instagram Scraper")
+st.markdown("""
+<div style="display: flex; align-items: center; gap: 10px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="36">
+    <h1 style="margin: 0;">Instagram Scraper</h1>
+</div>
+""", unsafe_allow_html=True)
 st.markdown("### COMING SOON!")
 st.markdown("---")
 
