@@ -63,7 +63,7 @@ st.markdown("""
 if 'scraped_df' not in st.session_state:
     st.session_state.scraped_df = None
 
---- HEADER ---
+# --- HEADER ---
 st.image("komi_logo.png", width=100)
 st.title("TikTok Scraper")
 st.caption("Powered by KOMI Group · Built for the Ark Media Team.")
