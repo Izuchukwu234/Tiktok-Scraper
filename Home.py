@@ -49,6 +49,7 @@ Welcome to the **KOMI Scraper Tool** – a unified platform to extract social me
 
 - TikTok ✅ (Finished first phase of development)
 - Instagram 🕐
+- Reddit 🕐
 - YouTube 🕐
 - Threads 🕐
 - Snapchat 🕐
