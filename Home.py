@@ -47,7 +47,7 @@ st.markdown('<div class="header-divider"></div>', unsafe_allow_html=True)
 st.markdown("""
 Welcome to the **KOMI Scraper Tool** – a unified platform to extract social media content from various platforms like:
 
-- TikTok ✅ (Finished first phase of development)
+- TikTok
 - Instagram 🕐
 - Reddit 🕐
 - YouTube 🕐
