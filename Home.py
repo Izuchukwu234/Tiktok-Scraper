@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import datetime
 
 # Page config
-st.set_page_config(page_title="KOMI Scraper | Home", page_icon="🔍", layout="centered")
+st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="centered")
 
 # --- STYLES ---
 st.markdown("""
@@ -39,17 +39,17 @@ st.markdown("""
 
 # --- LOGO & TITLE ---
 st.image("komi_logo.png", width=100)
-st.title("KOMI Scraper Tool")
+st.title("KOMI Radar")
 st.caption("Built for internal use by the KOMI Group")
 st.markdown('<div class="header-divider"></div>', unsafe_allow_html=True)
 
 # --- CONTENT ---
 st.markdown("""
-Welcome to the **KOMI Scraper Tool** – a unified platform to extract social media content from various platforms like:
+Welcome to the **KOMI Radar** – a unified platform to extract social media content from various platforms like:
 
 - TikTok
-- Instagram (Development of the app ongoing 😊)
-- Reddit 🕐
+- Reddit (Development of the app ongoing 😊)
+- Instagram 🕐
 - YouTube 🕐
 - Threads 🕐
 - Snapchat 🕐
