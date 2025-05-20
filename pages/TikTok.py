@@ -73,7 +73,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-st.caption("Powered by KOMI Group · Built for the Ark Media Team.")
+st.caption("Powered by KOMI Insights · Built for the Ark Media Team.")
 st.markdown('<div class="header-divider"></div>', unsafe_allow_html=True)
 st.markdown('<div style="height: 50px;"></div>', unsafe_allow_html=True)
 
