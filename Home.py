@@ -1,7 +1,11 @@
 import streamlit as st
 from datetime import datetime
 from auth import get_authenticator
-import inspect
+import logging
+
+# Set up logging for debugging (instead of st.write)
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 # Page config
 st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="centered")
@@ -19,9 +23,9 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 # --- AUTHENTICATION ---
 authenticator = get_authenticator()
 
-# Debug: Inspect session state and login method signature
-st.write("Debug - Session State:", st.session_state)
-st.write("Debug - Login method signature:", inspect.signature(authenticator.login))
+# Log session state and login method signature for debugging (not displayed in UI)
+logger.debug("Session State: %s", st.session_state)
+logger.debug("Login method signature: %s", inspect.signature(authenticator.login))
 
 # --- BEFORE LOGIN (Show logo and caption first) ---
 if "authentication_status" not in st.session_state or st.session_state["authentication_status"] is None:
@@ -37,11 +41,11 @@ fields = {
     "Login button": "Login"
 }
 
-# Call login with error handling
+# Call login with correct parameter order
 try:
-    login_result = authenticator.login(fields=fields, location="main")
+    login_result = authenticator.login(location="main", fields=fields)
     if login_result is None:
-        st.error("Authentication failed: Login returned None. Please check credentials or session state.")
+        st.error("Authentication failed: Login returned None. Please enter your credentials and try again.")
         name, authentication_status, username = None, None, None
     else:
         name, authentication_status, username = login_result
