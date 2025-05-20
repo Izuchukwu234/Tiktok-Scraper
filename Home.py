@@ -1,6 +1,7 @@
 import streamlit as st
 from datetime import datetime
 from auth import get_authenticator
+import inspect
 
 # Page config
 st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="centered")
@@ -17,6 +18,17 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # --- AUTHENTICATION ---
 authenticator = get_authenticator()
+
+# Debug: Inspect session state and login method signature
+st.write("Debug - Session State:", st.session_state)
+st.write("Debug - Login method signature:", inspect.signature(authenticator.login))
+
+# --- BEFORE LOGIN (Show logo and caption first) ---
+if "authentication_status" not in st.session_state or st.session_state["authentication_status"] is None:
+    st.image("komi_logo.png", width=120)
+    st.markdown("## Welcome to KOMI Radar")
+    st.caption("Powered by KOMI Insights!")
+
 # Define fields dictionary for login form
 fields = {
     "Form name": "Login",
@@ -24,6 +36,7 @@ fields = {
     "Password": "Password",
     "Login button": "Login"
 }
+
 # Call login with error handling
 try:
     login_result = authenticator.login(fields=fields, location="main")
@@ -111,8 +124,4 @@ if authentication_status:
 elif authentication_status is False:
     st.error("Incorrect username or password")
 
-# --- BEFORE LOGIN ---
-elif authentication_status is None:
-    st.image("komi_logo.png", width=120)
-    st.markdown("## Welcome to KOMI Radar")
-    st.caption("Powered by KOMI Insights!")
+# --- BEFORE LOGIN (already handled above, so no action needed here unless authentication_status is None) ---
