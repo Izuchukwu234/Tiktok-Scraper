@@ -1,11 +1,6 @@
 import streamlit as st
 from datetime import datetime
 from auth import get_authenticator
-import logging
-
-# Set up logging for debugging (instead of st.write)
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
 
 # Page config
 st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="centered")
@@ -22,40 +17,11 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # --- AUTHENTICATION ---
 authenticator = get_authenticator()
-
-# Log session state and login method signature for debugging (not displayed in UI)
-logger.debug("Session State: %s", st.session_state)
-logger.debug("Login method signature: %s", inspect.signature(authenticator.login))
-
-# --- BEFORE LOGIN (Show logo and caption first) ---
-if "authentication_status" not in st.session_state or st.session_state["authentication_status"] is None:
-    st.image("komi_logo.png", width=120)
-    st.markdown("## Welcome to KOMI Radar")
-    st.caption("Powered by KOMI Insights!")
-
-# Define fields dictionary for login form
-fields = {
-    "Form name": "Login",
-    "Username": "Username",
-    "Password": "Password",
-    "Login button": "Login"
-}
-
-# Call login with correct parameter order
-try:
-    login_result = authenticator.login(location="main", fields=fields)
-    if login_result is None:
-        st.error("Authentication failed: Login returned None. Please enter your credentials and try again.")
-        name, authentication_status, username = None, None, None
-    else:
-        name, authentication_status, username = login_result
-except Exception as e:
-    st.error(f"Authentication error: {str(e)}")
-    name, authentication_status, username = None, None, None
+name, authentication_status, username = authenticator.login("Login", location="main")  # <-- FIXED: explicit 'location'
 
 # --- LOGIN SUCCESS ---
 if authentication_status:
-    authenticator.logout(button_name="Logout", location="sidebar")
+    authenticator.logout("Logout", location="sidebar")
 
     # --- STYLES ---
     st.markdown("""
@@ -128,4 +94,8 @@ if authentication_status:
 elif authentication_status is False:
     st.error("Incorrect username or password")
 
-# --- BEFORE LOGIN (already handled above, so no action needed here unless authentication_status is None) ---
+# --- BEFORE LOGIN ---
+elif authentication_status is None:
+    st.image("komi_logo.png", width=120)
+    st.markdown("## Welcome to KOMI Radar")
+    st.caption("Powered by KOMI Insights!")
