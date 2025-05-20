@@ -24,11 +24,13 @@ fields = {
     "Password": "Password",
     "Login button": "Login"
 }
-name, authentication_status, username = authenticator.login(fields, location="main")
+# Use keyword arguments explicitly to avoid TypeError
+name, authentication_status, username = authenticator.login(fields=fields, location="main")
 
 # --- LOGIN SUCCESS ---
 if authentication_status:
-    authenticator.logout("Logout", location="sidebar")  # Consistent with version 0.4.2
+    # Use keyword arguments for logout as well
+    authenticator.logout(button_name="Logout", location="sidebar")
 
     # --- STYLES ---
     st.markdown("""
