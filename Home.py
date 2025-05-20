@@ -24,12 +24,20 @@ fields = {
     "Password": "Password",
     "Login button": "Login"
 }
-# Use keyword arguments explicitly to avoid TypeError
-name, authentication_status, username = authenticator.login(fields=fields, location="main")
+# Call login with error handling
+try:
+    login_result = authenticator.login(fields=fields, location="main")
+    if login_result is None:
+        st.error("Authentication failed: Login returned None. Please check credentials or session state.")
+        name, authentication_status, username = None, None, None
+    else:
+        name, authentication_status, username = login_result
+except Exception as e:
+    st.error(f"Authentication error: {str(e)}")
+    name, authentication_status, username = None, None, None
 
 # --- LOGIN SUCCESS ---
 if authentication_status:
-    # Use keyword arguments for logout as well
     authenticator.logout(button_name="Logout", location="sidebar")
 
     # --- STYLES ---
