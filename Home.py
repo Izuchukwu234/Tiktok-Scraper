@@ -40,7 +40,7 @@ st.markdown("""
 # --- LOGO & TITLE ---
 st.image("komi_logo.png", width=100)
 st.title("KOMI Radar")
-st.caption("Built for internal use by the KOMI Group")
+st.caption("Powered by KOMI Insights!")
 st.markdown('<div class="header-divider"></div>', unsafe_allow_html=True)
 
 # --- CONTENT ---
