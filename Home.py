@@ -17,11 +17,18 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # --- AUTHENTICATION ---
 authenticator = get_authenticator()
-name, authentication_status, username = authenticator.login("Login", location="main")  # Explicitly set location as keyword argument
+# Define fields dictionary for login form
+fields = {
+    "Form name": "Login",
+    "Username": "Username",
+    "Password": "Password",
+    "Login button": "Login"
+}
+name, authentication_status, username = authenticator.login(fields, location="main")
 
 # --- LOGIN SUCCESS ---
 if authentication_status:
-    authenticator.logout("Logout", location="sidebar")  # Explicitly set location as keyword argument
+    authenticator.logout("Logout", location="sidebar")  # Consistent with version 0.4.2
 
     # --- STYLES ---
     st.markdown("""
