@@ -5,21 +5,12 @@ from ensembledata.api import EDClient
 from io import BytesIO
 import numpy as np
 
-from auth import get_authenticator
-
-# --- PAGE CONFIG ---
-st.set_page_config(page_title="KOMI Scraper | KOMI Group", page_icon="komi_logo", layout="centered")
-
-authenticator = get_authenticator()
-name, authentication_status, username = authenticator.login('Login', 'main')
-
-if authentication_status:
-    authenticator.logout('Logout', 'sidebar')
-
-
 # --- SETTINGS ---
 API_TOKEN = "lSNX5D8FW02vlTX4"
 client = EDClient(API_TOKEN)
+
+# --- PAGE CONFIG ---
+st.set_page_config(page_title="KOMI Scraper | KOMI Group", page_icon="komi_logo", layout="centered")
 
 # --- CUSTOM CSS ---
 st.markdown("""
@@ -262,11 +253,3 @@ st.markdown(f"""
         <p>This tool is the property of KOMI Group and intended solely for internal use. Unauthorised distribution or use outside the organisation is strictly prohibited.</p>
     </div>
 """, unsafe_allow_html=True)
-
-elif authentication_status is False:
-    st.error("Incorrect username or password")
-
-elif authentication_status is None:
-    st.image("komi_logo.png", width=100)
-    st.markdown("## KOMI Login Required")
-    st.caption("Powered by KOMI Insights!")
