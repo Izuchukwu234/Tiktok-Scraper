@@ -5,5 +5,5 @@ ensembledata
 openpyxl
 python-docx
 fpdf
-streamlit-authenticator
+streamlit-authenticator==0.3.2
 bcrypt
