@@ -2,30 +2,26 @@ import streamlit as st
 from datetime import datetime
 from auth import get_authenticator
 
-# Page config
+# Set page config
 st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="centered")
 
-# --- Hide sidebar and menu bar for unauthenticated users ---
-hide_menu_style = """
+# Hide Streamlit default UI
+st.markdown("""
     <style>
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
+    #MainMenu, footer, header {visibility: hidden;}
     </style>
-"""
-st.markdown(hide_menu_style, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # --- AUTHENTICATION ---
 authenticator = get_authenticator()
 
-# ✅ Correct use of keyword argument for 'location'
+# ✅ Use only positional args — and ensure second argument is exactly one of: 'main', 'sidebar', 'unrendered'
 name, authentication_status, username = authenticator.login("Login", "main")
 
 # --- LOGIN SUCCESS ---
 if authentication_status:
-    authenticator.logout("Logout", location="sidebar")
+    authenticator.logout("Logout", "sidebar")
 
-    # --- STYLES ---
     st.markdown("""
         <style>
             body {
@@ -58,32 +54,32 @@ if authentication_status:
         </style>
     """, unsafe_allow_html=True)
 
-    # --- LOGO & TITLE ---
+    # App Title
     st.image("komi_logo.png", width=100)
     st.title("KOMI Radar")
     st.caption("Powered by KOMI Insights!")
     st.markdown('<div class="header-divider"></div>', unsafe_allow_html=True)
 
-    # --- CONTENT ---
+    # Content
     st.markdown("""
     Welcome to the **KOMI Radar** – a unified platform to extract social media content from various platforms like:
 
     - TikTok
-    - Reddit (Development of the app ongoing 😊)
+    - Reddit (Development ongoing 😊)
     - Instagram 🕐
     - YouTube 🕐
     - Threads 🕐
     - Snapchat 🕐
     - Twitter 🕐
 
-    Use the navigation menu (>) on the top-left to switch between platform pages.
+    Use the navigation menu (☰) on the top-left to switch between platform pages.
 
     ---
 
-    🚧 **Note**: This application is intended **only for internal use by KOMI Group**. Unauthorised access or distribution is prohibited.
+    🚧 **Note**: This application is intended **only for internal use by KOMI Group**. Unauthorized access or distribution is prohibited.
     """)
 
-    # --- FOOTER ---
+    # Footer
     current_year = datetime.now().year
     st.markdown(f"""
         <div class="footer">
