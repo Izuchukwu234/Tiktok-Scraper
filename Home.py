@@ -1,8 +1,20 @@
 import streamlit as st
 from datetime import datetime
+from auth import get_authenticator
 
 # Page config
 st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="centered")
+
+# --- AUTHENTICATION ---
+authenticator = get_authenticator()
+
+# Check login status
+if not st.session_state.get("authentication_status"):
+    st.warning("Please log in from the Login page.")
+    st.stop()
+
+# --- Show logout in sidebar ---
+authenticator.logout("Logout", location="sidebar")
 
 # --- STYLES ---
 st.markdown("""
@@ -60,7 +72,6 @@ Use the navigation menu (>) on the top-left to switch between platform pages.
 ---
 
 🚧 **Note**: This application is intended **only for internal use by KOMI Group**. Unauthorised access or distribution is prohibited.
-
 """)
 
 # --- FOOTER ---
