@@ -1,7 +1,7 @@
 import streamlit as st
 from auth import get_authenticator
 
-# Set page config
+# Page config
 st.set_page_config(page_title="Login | KOMI Radar", page_icon="🔐", layout="centered")
 
 # Hide sidebar, header, menu
@@ -13,12 +13,15 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# Load authenticator
 authenticator = get_authenticator()
 
+# Show logo
 st.image("komi_logo.png", width=120)
 st.markdown("## KOMI Radar Login")
 st.caption("Powered by KOMI Insights")
 
+# --- LOGIN FORM ---
 fields = {
     "Form name": "Login",
     "Username": "Username",
@@ -33,8 +36,10 @@ if login_result:
 else:
     name = authentication_status = username = None
 
+# --- Handle outcomes ---
 if authentication_status:
-    st.success("Login successful!")
-    st.switch_page("pages/Home.py")  # ✅ Redirect to Home page
+    st.success("Login successful! Redirecting...")
+    st.experimental_rerun()  # Rerun so session state persists
+    st.switch_page("Home")   # ✅ Use page title, NOT file name
 elif authentication_status is False:
     st.error("Incorrect username or password")
