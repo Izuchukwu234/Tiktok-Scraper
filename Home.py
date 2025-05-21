@@ -6,10 +6,11 @@ st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="cen
 
 authenticator = get_authenticator()
 
-# Hide sidebar and hamburger before login
-if not st.session_state.get("authentication_status", False):
+# Hide sidebar/hamburger before login
+if 'authentication_status' not in st.session_state or not st.session_state['authentication_status']:
     st.markdown("""
         <style>
+            /* Hide hamburger menu */
             button[aria-label="Toggle sidebar"],
             button[data-testid="stSidebarToggleButton"] {
                 visibility: hidden !important;
@@ -21,22 +22,24 @@ if not st.session_state.get("authentication_status", False):
                 overflow: hidden !important;
                 position: absolute !important;
             }
+            /* Hide sidebar itself */
             .css-1d391kg {
                 display: none !important;
             }
         </style>
     """, unsafe_allow_html=True)
 
-    # Logo & caption above login
+    # Logo and powered by caption above login
     st.image("komi_logo.png", width=120)
     st.markdown("## Welcome to KOMI Radar")
     st.caption("Powered by KOMI Insights!")
 
-# Show login form (no return value to unpack)
-authenticator.login("Login", location="main")
+# Perform login and unpack return values properly (v0.4.2 style)
+name, authentication_status, username = authenticator.login(location='main')
 
-if st.session_state.get("authentication_status"):
-    authenticator.logout("Logout", location="sidebar")
+if authentication_status:
+    # Show logout button in sidebar after login
+    authenticator.logout('Logout', location='sidebar')
 
     st.image("komi_logo.png", width=100)
     st.title("KOMI Radar")
@@ -69,9 +72,9 @@ if st.session_state.get("authentication_status"):
         </div>
     """, unsafe_allow_html=True)
 
-elif st.session_state.get("authentication_status") is False:
-    st.error("Incorrect username or password")
+elif authentication_status is False:
+    st.error("Username/password is incorrect")
 
-elif st.session_state.get("authentication_status") is None:
-    # user hasn't logged in yet, do nothing (logo & login form already shown)
+elif authentication_status is None:
+    # User has not yet entered credentials, show nothing here as login form is rendered above
     pass
