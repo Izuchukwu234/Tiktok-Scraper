@@ -10,7 +10,7 @@ authenticator = get_authenticator()
 
 # Check login status
 if not st.session_state.get("authentication_status"):
-    st.warning("Please log in from the Login page.")
+    st.warning("🔒 Please log in first.")
     st.stop()
 
 # --- Show logout in sidebar ---
