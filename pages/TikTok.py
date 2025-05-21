@@ -6,6 +6,9 @@ from io import BytesIO
 import numpy as np
 from auth import get_authenticator
 
+# --- PAGE CONFIG ---
+st.set_page_config(page_title="KOMI Scraper | KOMI Group", page_icon="komi_logo", layout="centered")
+
 # --- AUTHENTICATION ---
 authenticator = get_authenticator()
 
@@ -20,9 +23,6 @@ authenticator.logout("Logout", location="sidebar")
 # --- SETTINGS ---
 API_TOKEN = "lSNX5D8FW02vlTX4"
 client = EDClient(API_TOKEN)
-
-# --- PAGE CONFIG ---
-st.set_page_config(page_title="KOMI Scraper | KOMI Group", page_icon="komi_logo", layout="centered")
 
 # --- CUSTOM CSS ---
 st.markdown("""
