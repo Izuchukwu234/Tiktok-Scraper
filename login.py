@@ -43,6 +43,6 @@ else:
 # --- Handle outcomes ---
 if authentication_status:
     st.session_state["authentication_status"] = True
-    st.experimental_rerun()  # Will rerun, and redirect at top
-elif authentication_status is False:
+    st.experimental_rerun()  # Rerun to trigger redirect
+elif authentication_status is False and 'username' in st.session_state:
     st.error("Incorrect username or password")
