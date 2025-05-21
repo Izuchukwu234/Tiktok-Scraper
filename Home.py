@@ -17,7 +17,7 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # --- AUTHENTICATION ---
 authenticator = get_authenticator()
-name, authentication_status, username = authenticator.login(form_name="Login", location="main")
+name, authentication_status, username = authenticator.login("Login", "main")
 
 # --- LOGIN SUCCESS ---
 if authentication_status:
