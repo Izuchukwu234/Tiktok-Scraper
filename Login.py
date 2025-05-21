@@ -123,6 +123,10 @@ with col2:  # Use the middle column for content
     st.markdown("## KOMI Radar Login")
     st.caption("Powered by KOMI Insights")
 
+# Add horizontal line and spacing
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)  # Adds vertical space
+
 # Login form
 fields = {
     "Form name": "Login",
