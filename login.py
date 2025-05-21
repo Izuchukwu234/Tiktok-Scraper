@@ -81,7 +81,8 @@ with st.form("login_form"):
 
     if login_button:
         if username_input in credentials["usernames"]:
-            # Trim whitespace from password input
+            # Trim whitespace from inputs
+            username_input = username_input.strip()
             password_input = password_input.strip()
             stored_pw_hash = credentials["usernames"][username_input]["password"].encode("utf-8")
             try:
