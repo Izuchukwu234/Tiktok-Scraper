@@ -107,9 +107,6 @@ st.markdown("""
         display: none;
     }
     .centered-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         text-align: center;
     }
     </style>
@@ -122,15 +119,14 @@ if st.session_state.get("authentication_status"):
 # Load authenticator
 authenticator = get_authenticator()
 
-# Centered container for logo, title, and caption
-with st.container():
-    st.markdown('<div class="centered-content">', unsafe_allow_html=True)
-    st.image("komi_logo.png", width=120)
-    st.markdown("## KOMI Radar Login")
-    st.caption("Powered by KOMI Insights")
-    st.markdown('</div>', unsafe_allow_html=True)
+# Centered logo, title, and caption
+st.markdown('<div class="centered-content">', unsafe_allow_html=True)
+st.image("komi_logo.png", width=120)
+st.markdown("## KOMI Radar Login")
+st.caption("Powered by KOMI Insights")
+st.markdown('</div>', unsafe_allow_html=True)
 
-# --- LOGIN FORM ---
+# Login form
 fields = {
     "Form name": "Login",
     "Username": "Username",
@@ -145,9 +141,9 @@ if login_result:
 else:
     name = authentication_status = username = None
 
-# --- Handle outcomes ---
+# Handle outcomes
 if authentication_status:
     st.session_state["authentication_status"] = True
-    st.experimental_rerun()  # Will rerun, and redirect at top
+    st.experimental_rerun()
 elif authentication_status is False:
     st.error("Incorrect username or password")
