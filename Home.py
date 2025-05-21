@@ -17,11 +17,13 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # --- AUTHENTICATION ---
 authenticator = get_authenticator()
+
+# ✅ Pass arguments as positional (v0.4.2 expects this)
 name, authentication_status, username = authenticator.login("Login", "main")
 
 # --- LOGIN SUCCESS ---
 if authentication_status:
-    authenticator.logout(button_name="Logout", location="sidebar")
+    authenticator.logout("Logout", "sidebar")
 
     # --- STYLES ---
     st.markdown("""
