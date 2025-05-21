@@ -13,10 +13,8 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Load authenticator
 authenticator = get_authenticator()
 
-# Show logo and login
 st.image("komi_logo.png", width=120)
 st.markdown("## KOMI Radar Login")
 st.caption("Powered by KOMI Insights")
@@ -37,6 +35,6 @@ else:
 
 if authentication_status:
     st.success("Login successful!")
-    st.switch_page("Home.py")  # Redirect to Home page
+    st.switch_page("pages/Home.py")  # ✅ Redirect to Home page
 elif authentication_status is False:
     st.error("Incorrect username or password")
