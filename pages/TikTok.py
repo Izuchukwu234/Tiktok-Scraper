@@ -4,6 +4,18 @@ from datetime import datetime
 from ensembledata.api import EDClient
 from io import BytesIO
 import numpy as np
+from auth import get_authenticator
+
+# --- AUTHENTICATION ---
+authenticator = get_authenticator()
+
+# Check login status
+if not st.session_state.get("authentication_status"):
+    st.warning("🔒 Please log in first.")
+    st.stop()
+
+# --- Show logout in sidebar ---
+authenticator.logout("Logout", location="sidebar")
 
 # --- SETTINGS ---
 API_TOKEN = "lSNX5D8FW02vlTX4"
