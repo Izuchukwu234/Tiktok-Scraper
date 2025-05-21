@@ -68,6 +68,9 @@ if st.session_state.get("authentication_status"):
 # Load authenticator and credentials
 authenticator, credentials = get_authenticator()
 
+# Debug: Show credentials to verify structure (remove in production)
+st.write("Debug: Credentials structure:", credentials)
+
 # --- UI ---
 st.image("komi_logo.png", width=120)
 st.markdown("## KOMI Radar Login")
@@ -87,7 +90,7 @@ with st.form("login_form"):
             username_input = username_input.strip()
             password_input = password_input.strip()
             
-            # Debug: Show inputs and hash (remove in production)
+            # Debug: Show inputs (remove in production)
             st.write("Debug: Username entered:", username_input)
             st.write("Debug: Password length:", len(password_input))
             st.write("Debug: Password (encoded):", password_input.encode("utf-8"))
@@ -99,6 +102,7 @@ with st.form("login_form"):
                 if isinstance(stored_pw_hash, str):
                     stored_pw_hash = stored_pw_hash.encode("utf-8")
                 st.write("Debug: Stored hash:", stored_pw_hash)
+                st.write("Debug: Stored hash type:", type(stored_pw_hash))
                 
                 try:
                     if bcrypt.checkpw(password_input.encode("utf-8"), stored_pw_hash):
