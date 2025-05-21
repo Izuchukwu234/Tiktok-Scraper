@@ -17,11 +17,11 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # --- AUTHENTICATION ---
 authenticator = get_authenticator()
-name, authentication_status, username = authenticator.login("Login", location="main")  # <-- FIXED: explicit 'location'
+name, authentication_status, username = authenticator.login(form_name="Login", location="main")
 
 # --- LOGIN SUCCESS ---
 if authentication_status:
-    authenticator.logout("Logout", location="sidebar")
+    authenticator.logout(button_name="Logout", location="sidebar")
 
     # --- STYLES ---
     st.markdown("""
