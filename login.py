@@ -1,4 +1,5 @@
 import streamlit as st
+import bcrypt
 from auth import get_authenticator
 
 # Page config
@@ -13,36 +14,34 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# If already authenticated, redirect to Home
+# Redirect if already logged in
 if st.session_state.get("authentication_status"):
     st.switch_page("pages/Home.py")
 
-# Load authenticator
+# Load authenticator and credentials
 authenticator = get_authenticator()
+credentials = authenticator.credentials
 
-# Show logo and login header
+# --- UI ---
 st.image("komi_logo.png", width=120)
 st.markdown("## KOMI Radar Login")
 st.caption("Powered by KOMI Insights")
 
-# --- LOGIN FORM ---
-fields = {
-    "Form name": "Login",
-    "Username": "Username",
-    "Password": "Password",
-    "Login button": "Login"
-}
+# --- Manual Login Form ---
+with st.form("login_form"):
+    username_input = st.text_input("Username")
+    password_input = st.text_input("Password", type="password")
+    login_button = st.form_submit_button("Login")
 
-login_result = authenticator.login(fields=fields, location='main')
-
-if login_result:
-    name, authentication_status, username = login_result
-else:
-    name = authentication_status = username = None
-
-# --- Handle outcomes ---
-if authentication_status:
-    st.session_state["authentication_status"] = True
-    st.experimental_rerun()  # Rerun to trigger redirect
-elif authentication_status is False and 'username' in st.session_state:
-    st.error("Incorrect username or password")
+    if login_button:
+        if username_input in credentials["usernames"]:
+            stored_pw_hash = credentials["usernames"][username_input]["password"]
+            if bcrypt.checkpw(password_input.encode(), stored_pw_hash.encode()):
+                st.session_state["authentication_status"] = True
+                st.session_state["username"] = username_input
+                st.success("Login successful! Redirecting...")
+                st.experimental_rerun()
+            else:
+                st.error("Incorrect username or password.")
+        else:
+            st.error("Incorrect username or password.")
