@@ -19,7 +19,7 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 authenticator = get_authenticator()
 
 # ✅ Correct use of keyword argument for 'location'
-name, authentication_status, username = authenticator.login("Login", location="main")
+name, authentication_status, username = authenticator.login("Login", "main")
 
 # --- LOGIN SUCCESS ---
 if authentication_status:
