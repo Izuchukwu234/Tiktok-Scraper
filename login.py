@@ -13,10 +13,14 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# If already authenticated, redirect to Home
+if st.session_state.get("authentication_status"):
+    st.switch_page("pages/Home.py")
+
 # Load authenticator
 authenticator = get_authenticator()
 
-# Show logo
+# Show logo and login header
 st.image("komi_logo.png", width=120)
 st.markdown("## KOMI Radar Login")
 st.caption("Powered by KOMI Insights")
@@ -38,8 +42,7 @@ else:
 
 # --- Handle outcomes ---
 if authentication_status:
-    st.success("Login successful! Redirecting...")
-    st.experimental_rerun()  # Rerun so session state persists
-    st.switch_page("Home")   # ✅ Use page title, NOT file name
+    st.session_state["authentication_status"] = True
+    st.experimental_rerun()  # Will rerun, and redirect at top
 elif authentication_status is False:
     st.error("Incorrect username or password")
