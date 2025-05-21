@@ -134,7 +134,7 @@ with col2:
 
 # Add horizontal line and spacing
 st.markdown("<hr>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)  # Adds vertical space
+st.markdown("<br>", unsafe_allow_html=True)
 
 # Login form
 fields = {
@@ -158,8 +158,13 @@ if authentication_status:
 elif authentication_status is False:
     st.error("Incorrect username or password")
 
-# Add line break and professional footer
-st.markdown("<br>", unsafe_allow_html=True)  # Adds vertical space
+# Add line break
+st.markdown("<br>", unsafe_allow_html=True)
+# Add horizontal line and spacing
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
+
+
 st.markdown(
     """
     <div class="footer">
