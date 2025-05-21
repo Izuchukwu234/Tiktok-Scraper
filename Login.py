@@ -106,9 +106,6 @@ st.markdown("""
     #MainMenu, footer, header, [data-testid="stSidebar"], button[aria-label="Toggle sidebar"] {
         display: none;
     }
-    .centered-content {
-        text-align: center;
-    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -119,12 +116,12 @@ if st.session_state.get("authentication_status"):
 # Load authenticator
 authenticator = get_authenticator()
 
-# Centered logo, title, and caption
-st.markdown('<div class="centered-content">', unsafe_allow_html=True)
-st.image("komi_logo.png", width=120)
-st.markdown("## KOMI Radar Login")
-st.caption("Powered by KOMI Insights")
-st.markdown('</div>', unsafe_allow_html=True)
+# Centered logo, title, and caption using st.columns
+col1, col2, col3 = st.columns([1, 2, 1])  # Create 3 columns, middle one is wider
+with col2:  # Use the middle column for content
+    st.image("komi_logo.png", width=120)
+    st.markdown("## KOMI Radar Login")
+    st.caption("Powered by KOMI Insights")
 
 # Login form
 fields = {
