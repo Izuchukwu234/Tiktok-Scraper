@@ -2,20 +2,23 @@ import streamlit as st
 from datetime import datetime
 from auth import get_authenticator
 
-# Page setup
+# Page config
 st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="centered")
 
-# Hide default Streamlit UI
-st.markdown("""
+# --- Hide sidebar and menu bar for unauthenticated users ---
+hide_menu_style = """
     <style>
-    #MainMenu, header, footer {visibility: hidden;}
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
     </style>
-""", unsafe_allow_html=True)
+"""
+st.markdown(hide_menu_style, unsafe_allow_html=True)
 
-# --- AUTH ---
+# --- AUTHENTICATION ---
 authenticator = get_authenticator()
 
-# Use keyword args to avoid ambiguous signature parsing
+# Define fields dictionary for login form
 fields = {
     "Form name": "Login",
     "Username": "Username",
@@ -23,40 +26,91 @@ fields = {
     "Login button": "Login"
 }
 
-# 💡 This matches streamlit-authenticator v0.4.2
-name, authentication_status, username = authenticator.login(
-    fields=fields,
-    location="main"
-)
+# Call login and safely unpack the result
+login_result = authenticator.login(fields=fields, location="main")
 
-# --- After login ---
+if login_result is not None:
+    name, authentication_status, username = login_result
+else:
+    name = authentication_status = username = None
+
+# --- LOGIN SUCCESS ---
 if authentication_status:
+    # Logout button in sidebar
     authenticator.logout(button_name="Logout", location="sidebar")
 
+    # --- STYLES ---
+    st.markdown("""
+        <style>
+            body {
+                background-color: #f5f7fa;
+                font-family: 'Segoe UI', sans-serif;
+            }
+            .main {
+                background-color: #ffffff;
+                border-radius: 12px;
+                padding: 2rem;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+                margin-top: 2rem;
+            }
+            .header-divider {
+                border-top: 2px solid #e0e0e0;
+                margin-top: 1rem;
+                margin-bottom: 2rem;
+            }
+            h1 {
+                color: #007bff;
+            }
+            .footer {
+                font-size: 0.85rem;
+                color: #888;
+                text-align: center;
+                margin-top: 3rem;
+                padding-top: 1rem;
+                border-top: 1px solid #ddd;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # --- LOGO & TITLE ---
     st.image("komi_logo.png", width=100)
     st.title("KOMI Radar")
     st.caption("Powered by KOMI Insights!")
-    st.markdown("---")
+    st.markdown('<div class="header-divider"></div>', unsafe_allow_html=True)
 
+    # --- CONTENT ---
     st.markdown("""
-    Welcome to the **KOMI Radar** – a unified platform to extract social media content from:
+    Welcome to the **KOMI Radar** – a unified platform to extract social media content from various platforms like:
 
     - TikTok
-    - Reddit (Dev in progress 😊)
+    - Reddit (Development of the app ongoing 😊)
     - Instagram 🕐
     - YouTube 🕐
     - Threads 🕐
     - Snapchat 🕐
     - Twitter 🕐
 
-    Use the sidebar navigation to access different platform tools.
+    Use the navigation menu (>) on the top-left to switch between platform pages.
+
+    ---
+
+    🚧 **Note**: This application is intended **only for internal use by KOMI Group**. Unauthorized access or distribution is prohibited.
     """)
 
-    st.markdown(f"<p style='text-align: center; color: grey; font-size: 0.9rem;'>© {datetime.now().year} KOMI Group. Internal use only.</p>", unsafe_allow_html=True)
+    # --- FOOTER ---
+    current_year = datetime.now().year
+    st.markdown(f"""
+        <div class="footer">
+            <p>© {current_year} KOMI Group. All rights reserved.</p>
+            <p>This tool is property of KOMI Group and is restricted to internal use only.</p>
+        </div>
+    """, unsafe_allow_html=True)
 
+# --- LOGIN FAILED ---
 elif authentication_status is False:
-    st.error("Incorrect username or password.")
+    st.error("Incorrect username or password")
 
+# --- BEFORE LOGIN ---
 elif authentication_status is None:
     st.image("komi_logo.png", width=120)
     st.markdown("## Welcome to KOMI Radar")
