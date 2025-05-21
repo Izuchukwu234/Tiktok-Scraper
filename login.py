@@ -19,8 +19,7 @@ if st.session_state.get("authentication_status"):
     st.switch_page("pages/Home.py")
 
 # Load authenticator and credentials
-authenticator = get_authenticator()
-credentials = authenticator.credentials
+authenticator, credentials = get_authenticator()
 
 # --- UI ---
 st.image("komi_logo.png", width=120)
