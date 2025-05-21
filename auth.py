@@ -31,7 +31,7 @@ def get_authenticator():
     authenticator = stauth.Authenticate(
         credentials,
         cookie_name='komi_app',
-        key='51d4f55920a4b81efb19ab690efce1dd',
+        key='auth',
         cookie_expiry_days=1
     )
 
