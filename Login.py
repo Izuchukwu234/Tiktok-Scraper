@@ -106,6 +106,12 @@ st.markdown("""
     #MainMenu, footer, header, [data-testid="stSidebar"], button[aria-label="Toggle sidebar"] {
         display: none;
     }
+    .footer {
+        text-align: center;
+        font-size: 0.8em;
+        color: #666;
+        margin-top: 20px;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -148,3 +154,15 @@ if authentication_status:
     st.experimental_rerun()
 elif authentication_status is False:
     st.error("Incorrect username or password")
+
+# Add line break and professional footer
+st.markdown("<br>", unsafe_allow_html=True)  # Adds vertical space
+st.markdown(
+    """
+    <div class="footer">
+        &copy; 2025 KOMI Group. All rights reserved.<br>
+        KOMI Radar is for internal use only.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
