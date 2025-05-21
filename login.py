@@ -34,8 +34,8 @@ with st.form("login_form"):
 
     if login_button:
         if username_input in credentials["usernames"]:
-            stored_pw_hash = credentials["usernames"][username_input]["password"]
-            if bcrypt.checkpw(password_input.encode(), stored_pw_hash.encode()):
+            stored_pw_hash = credentials["usernames"][username_input]["password"].encode("utf-8")
+            if bcrypt.checkpw(password_input.encode("utf-8"), stored_pw_hash):
                 st.session_state["authentication_status"] = True
                 st.session_state["username"] = username_input
                 st.success("Login successful! Redirecting...")
