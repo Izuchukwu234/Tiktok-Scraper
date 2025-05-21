@@ -112,6 +112,9 @@ st.markdown("""
         color: #666;
         margin-top: 20px;
     }
+    .komi-blue {
+        color: #0000FF;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -126,7 +129,7 @@ authenticator = get_authenticator()
 col1, col2, col3 = st.columns([1, 4, 1])
 with col2:
     st.image("komi_logo.png", width=120)
-    st.markdown("## Welcome to KOMI Radar 😊")
+    st.markdown('## Welcome to <span class="komi-blue">KOMI</span> Radar 😊', unsafe_allow_html=True)
     st.caption("Powered by KOMI Insights!")
 
 # Add horizontal line and spacing
@@ -160,7 +163,7 @@ st.markdown("<br>", unsafe_allow_html=True)  # Adds vertical space
 st.markdown(
     """
     <div class="footer">
-        &copy; 2025 KOMI Group. All rights reserved.<br>
+        © 2025 KOMI Group. All rights reserved.<br>
         KOMI Radar is for internal use only.
     </div>
     """,
