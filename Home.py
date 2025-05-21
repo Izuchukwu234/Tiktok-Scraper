@@ -5,20 +5,27 @@ from auth import get_authenticator
 # Page config
 st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="centered")
 
-# --- Hide sidebar and menu bar for unauthenticated users ---
+# --- Hide sidebar toggle, menu, and footer for unauthenticated users ---
 hide_menu_style = """
     <style>
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
+    /* Hide hamburger menu */
+    button[aria-label="Toggle sidebar"] {
+        visibility: hidden;
+    }
     </style>
 """
-st.markdown(hide_menu_style, unsafe_allow_html=True)
 
-# --- AUTHENTICATION ---
 authenticator = get_authenticator()
 
-# Define fields dictionary for login form
+# --- Show logo and caption ABOVE the login form ---
+st.image("komi_logo.png", width=120)
+st.markdown("## Welcome to KOMI Radar")
+st.caption("Powered by KOMI Insights!")
+
+# --- AUTHENTICATION ---
 fields = {
     "Form name": "Login",
     "Username": "Username",
@@ -26,7 +33,6 @@ fields = {
     "Login button": "Login"
 }
 
-# Call login and safely unpack the result
 login_result = authenticator.login(fields=fields, location="main")
 
 if login_result is not None:
@@ -34,9 +40,13 @@ if login_result is not None:
 else:
     name = authentication_status = username = None
 
+# Hide sidebar/menu/footer before login
+if not authentication_status:
+    st.markdown(hide_menu_style, unsafe_allow_html=True)
+
 # --- LOGIN SUCCESS ---
 if authentication_status:
-    # Logout button in sidebar
+    # Logout button on sidebar
     authenticator.logout(button_name="Logout", location="sidebar")
 
     # --- STYLES ---
@@ -72,7 +82,7 @@ if authentication_status:
         </style>
     """, unsafe_allow_html=True)
 
-    # --- LOGO & TITLE ---
+    # --- LOGO & TITLE (again, below login on success) ---
     st.image("komi_logo.png", width=100)
     st.title("KOMI Radar")
     st.caption("Powered by KOMI Insights!")
@@ -109,9 +119,8 @@ if authentication_status:
 # --- LOGIN FAILED ---
 elif authentication_status is False:
     st.error("Incorrect username or password")
+    st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # --- BEFORE LOGIN ---
 elif authentication_status is None:
-    st.image("komi_logo.png", width=120)
-    st.markdown("## Welcome to KOMI Radar")
-    st.caption("Powered by KOMI Insights!")
+    st.markdown(hide_menu_style, unsafe_allow_html=True)
