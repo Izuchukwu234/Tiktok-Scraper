@@ -123,11 +123,11 @@ if st.session_state.get("authentication_status"):
 authenticator = get_authenticator()
 
 # Centered logo, title, and caption using st.columns
-col1, col2, col3 = st.columns([1, 2, 1])  # Create 3 columns, middle one is wider
+col1, col2, col3 = st.columns([1, 2, 1])
 with col2:  # Use the middle column for content
     st.image("komi_logo.png", width=120)
-    st.markdown("## KOMI Radar Login")
-    st.caption("Powered by KOMI Insights")
+    st.markdown("## Welcome to KOMI Radar")
+    st.caption("Powered by KOMI Insights!")
 
 # Add horizontal line and spacing
 st.markdown("<hr>", unsafe_allow_html=True)
