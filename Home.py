@@ -5,27 +5,33 @@ from auth import get_authenticator
 # Page config
 st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="centered")
 
-# --- Hide sidebar toggle, menu, and footer for unauthenticated users ---
-hide_menu_style = """
-    <style>
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    /* Hide hamburger menu */
-    button[aria-label="Toggle sidebar"] {
-        visibility: hidden;
-    }
-    </style>
-"""
-
+# Initialize authenticator
 authenticator = get_authenticator()
 
-# --- Show logo and caption ABOVE the login form ---
-st.image("komi_logo.png", width=120)
-st.markdown("## Welcome to KOMI Radar")
-st.caption("Powered by KOMI Insights!")
+# CSS to hide hamburger sidebar toggle and sidebar completely before login
+hide_sidebar_style = """
+<style>
+    /* Hide sidebar toggle button */
+    button[aria-label="Toggle sidebar"],
+    button[data-testid="stSidebarToggleButton"] {
+        visibility: hidden !important;
+        pointer-events: none !important;
+        height: 0 !important;
+        width: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        position: absolute !important;
+    }
+    /* Hide entire sidebar */
+    .css-1d391kg {
+        display: none !important;
+    }
+</style>
+"""
 
 # --- AUTHENTICATION ---
+# Define the login form fields dictionary (per streamlit-authenticator 0.4.2 spec)
 fields = {
     "Form name": "Login",
     "Username": "Username",
@@ -33,23 +39,26 @@ fields = {
     "Login button": "Login"
 }
 
-login_result = authenticator.login(fields=fields, location="main")
+# Only show sidebar toggle + sidebar when logged in
+if 'authentication_status' not in st.session_state or not st.session_state['authentication_status']:
+    st.markdown(hide_sidebar_style, unsafe_allow_html=True)
 
-if login_result is not None:
-    name, authentication_status, username = login_result
-else:
-    name = authentication_status = username = None
+    # Show logo & powered by KOMI above login
+    st.image("komi_logo.png", width=120)
+    st.markdown("## Welcome to KOMI Radar")
+    st.caption("Powered by KOMI Insights!")
 
-# Hide sidebar/menu/footer before login
-if not authentication_status:
-    st.markdown(hide_menu_style, unsafe_allow_html=True)
+# Perform login
+name, authentication_status, username = authenticator.login(fields=fields, location="main")
 
-# --- LOGIN SUCCESS ---
 if authentication_status:
+    # Show sidebar toggle and sidebar again after login
+    # (No special CSS means default behavior)
+
     # Logout button on sidebar
     authenticator.logout(button_name="Logout", location="sidebar")
 
-    # --- STYLES ---
+    # Page styles
     st.markdown("""
         <style>
             body {
@@ -82,13 +91,13 @@ if authentication_status:
         </style>
     """, unsafe_allow_html=True)
 
-    # --- LOGO & TITLE (again, below login on success) ---
+    # Logo & title (inside main content area)
     st.image("komi_logo.png", width=100)
     st.title("KOMI Radar")
     st.caption("Powered by KOMI Insights!")
     st.markdown('<div class="header-divider"></div>', unsafe_allow_html=True)
 
-    # --- CONTENT ---
+    # Main content
     st.markdown("""
     Welcome to the **KOMI Radar** – a unified platform to extract social media content from various platforms like:
 
@@ -104,10 +113,10 @@ if authentication_status:
 
     ---
 
-    🚧 **Note**: This application is intended **only for internal use by KOMI Group**. Unauthorized access or distribution is prohibited.
+    🚧 **Note**: This application is intended **only for internal use by KOMI Group**. Unauthorised access or distribution is prohibited.
     """)
 
-    # --- FOOTER ---
+    # Footer
     current_year = datetime.now().year
     st.markdown(f"""
         <div class="footer">
@@ -116,11 +125,9 @@ if authentication_status:
         </div>
     """, unsafe_allow_html=True)
 
-# --- LOGIN FAILED ---
 elif authentication_status is False:
     st.error("Incorrect username or password")
-    st.markdown(hide_menu_style, unsafe_allow_html=True)
 
-# --- BEFORE LOGIN ---
 elif authentication_status is None:
-    st.markdown(hide_menu_style, unsafe_allow_html=True)
+    # Before login (show logo + welcome - already shown above, so can be empty or add here if you want)
+    pass
