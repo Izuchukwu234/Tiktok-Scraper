@@ -1,6 +1,18 @@
 import streamlit as st
+from auth import get_authenticator
 
 st.set_page_config(page_title="How We Collect Data | KOMI Group", page_icon="📊")
+
+# --- AUTHENTICATION ---
+authenticator = get_authenticator()
+
+# Check login status
+if not st.session_state.get("authentication_status"):
+    st.warning("🔒 Please log in first.")
+    st.stop()
+
+# --- Show logout in sidebar ---
+authenticator.logout("Logout", location="sidebar")
 
 st.image("komi_logo.png", width=100)
 st.title("How We Collect Data")
