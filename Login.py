@@ -123,7 +123,7 @@ if st.session_state.get("authentication_status"):
 authenticator = get_authenticator()
 
 # Centered logo, title, and caption using st.columns
-col1, col2, col3 = st.columns([1, 2, 3])
+col1, col2, col3 = st.columns([1, 3, 1])
 with col2:
     st.image("komi_logo.png", width=120)
     st.markdown("## Welcome to KOMI Radar 😊")
