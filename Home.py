@@ -6,11 +6,10 @@ st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="cen
 
 authenticator = get_authenticator()
 
-# Hide sidebar toggle and sidebar before login
-if 'authentication_status' not in st.session_state or not st.session_state['authentication_status']:
+# Hide sidebar and hamburger before login
+if not st.session_state.get("authentication_status", False):
     st.markdown("""
         <style>
-            /* Hide sidebar toggle */
             button[aria-label="Toggle sidebar"],
             button[data-testid="stSidebarToggleButton"] {
                 visibility: hidden !important;
@@ -22,25 +21,23 @@ if 'authentication_status' not in st.session_state or not st.session_state['auth
                 overflow: hidden !important;
                 position: absolute !important;
             }
-            /* Hide sidebar */
             .css-1d391kg {
                 display: none !important;
             }
         </style>
     """, unsafe_allow_html=True)
 
-    # Logo & welcome above login
+    # Logo & caption above login
     st.image("komi_logo.png", width=120)
     st.markdown("## Welcome to KOMI Radar")
     st.caption("Powered by KOMI Insights!")
 
-# LOGIN
-name, authentication_status, username = authenticator.login(location="main")
+# Show login form (no return value to unpack)
+authenticator.login("Login", location="main")
 
-if authentication_status:
-    authenticator.logout(button_name="Logout", location="sidebar")
+if st.session_state.get("authentication_status"):
+    authenticator.logout("Logout", location="sidebar")
 
-    # Main page content, styles, footer etc.
     st.image("komi_logo.png", width=100)
     st.title("KOMI Radar")
     st.caption("Powered by KOMI Insights!")
@@ -72,9 +69,9 @@ if authentication_status:
         </div>
     """, unsafe_allow_html=True)
 
-elif authentication_status is False:
+elif st.session_state.get("authentication_status") is False:
     st.error("Incorrect username or password")
 
-elif authentication_status is None:
-    # No need to do anything here, logo shown above login
+elif st.session_state.get("authentication_status") is None:
+    # user hasn't logged in yet, do nothing (logo & login form already shown)
     pass
