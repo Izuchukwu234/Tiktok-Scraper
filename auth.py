@@ -12,7 +12,7 @@ def get_authenticator():
     }
 
     return stauth.Authenticate(
-        credentials=credentials,
+        credentials,
         cookie_name='komi_app',
         key='auth',
         cookie_expiry_days=1
