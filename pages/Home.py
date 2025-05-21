@@ -1,8 +1,20 @@
 import streamlit as st
 from datetime import datetime
+from auth import get_authenticator
 
 # Page config
-st.set_page_config(page_title="KOMI Scraper | Home", page_icon="🔍", layout="centered")
+st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="centered")
+
+# --- AUTHENTICATION ---
+authenticator = get_authenticator()
+
+# Check login status
+if not st.session_state.get("authentication_status"):
+    st.warning("Please log in from the Login page.")
+    st.stop()
+
+# --- Show logout in sidebar ---
+authenticator.logout("Logout", location="sidebar")
 
 # --- STYLES ---
 st.markdown("""
@@ -39,27 +51,27 @@ st.markdown("""
 
 # --- LOGO & TITLE ---
 st.image("komi_logo.png", width=100)
-st.title("KOMI Scraper Tool")
-st.caption("Built for internal use by the KOMI Group • Version 1.0")
+st.title("KOMI Radar")
+st.caption("Powered by KOMI Insights!")
 st.markdown('<div class="header-divider"></div>', unsafe_allow_html=True)
 
 # --- CONTENT ---
 st.markdown("""
-Welcome to the **KOMI Scraper Tool** – a unified platform to extract social media content from various platforms like:
+Welcome to the **KOMI Radar** – a unified platform to extract social media content from various platforms like:
 
-- TikTok ✅ (fully functional)
+- TikTok
+- Reddit (Development of the app ongoing 😊)
 - Instagram 🕐
 - YouTube 🕐
 - Threads 🕐
 - Snapchat 🕐
 - Twitter 🕐
 
-Use the navigation menu (☰) on the top-left to switch between platform pages or to view how we collect data.
+Use the navigation menu (>) on the top-left to switch between platform pages.
 
 ---
 
-🚧 **Note**: This application is intended **only for internal use by KOMI Group**. Unauthorized access or distribution is prohibited.
-
+🚧 **Note**: This application is intended **only for internal use by KOMI Group**. Unauthorised access or distribution is prohibited.
 """)
 
 # --- FOOTER ---
