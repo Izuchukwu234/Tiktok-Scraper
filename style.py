@@ -45,28 +45,25 @@ def inject_custom_css():
                 margin: 15px;
             }
 
-            /* Sidebar Links */
-            section[data-testid="stSidebar"] a {
+            /* Sidebar Link Styling */
+            section[data-testid="stSidebar"] a span {
                 color: #007bff !important;
                 font-weight: bold !important;
                 text-transform: uppercase !important;
                 font-size: 14px !important;
-                text-decoration: none !important;
-                display: block;
-                margin-bottom: 8px;
             }
 
-            section[data-testid="stSidebar"] a:hover {
-                text-decoration: underline !important;
+            section[data-testid="stSidebar"] a:hover span {
                 color: #0056b3 !important;
+                text-decoration: underline !important;
             }
 
-            /* Sidebar Logout Button spacing */
+            /* Logout Button Margin */
             .block-container .stButton {
                 margin-bottom: 25px;
             }
 
-            /* Optional: Extra spacing around elements */
+            /* Logo Spacing */
             section[data-testid="stSidebar"] img {
                 margin-top: 20px;
                 margin-bottom: 10px;
