@@ -36,7 +36,7 @@ def inject_custom_css():
                 border-top: 1px solid #ddd;
             }
 
-            /* Sidebar Styling */
+            /* Sidebar Container */
             section[data-testid="stSidebar"] > div:first-child {
                 background-color: #ffffff;
                 border-radius: 16px;
@@ -45,18 +45,32 @@ def inject_custom_css():
                 margin: 15px;
             }
 
-            section[data-testid="stSidebar"] a span {
+            /* Sidebar Links */
+            section[data-testid="stSidebar"] a {
                 color: #007bff !important;
-                font-weight: 600 !important;
-                font-size: 15px;
+                font-weight: bold !important;
+                text-transform: uppercase !important;
+                font-size: 14px !important;
+                text-decoration: none !important;
+                display: block;
+                margin-bottom: 8px;
             }
 
-            section[data-testid="stSidebar"] a:hover span {
-                text-decoration: underline;
+            section[data-testid="stSidebar"] a:hover {
+                text-decoration: underline !important;
+                color: #0056b3 !important;
             }
 
+            /* Sidebar Logout Button spacing */
             .block-container .stButton {
                 margin-bottom: 25px;
             }
+
+            /* Optional: Extra spacing around elements */
+            section[data-testid="stSidebar"] img {
+                margin-top: 20px;
+                margin-bottom: 10px;
+            }
+
         </style>
     """, unsafe_allow_html=True)
