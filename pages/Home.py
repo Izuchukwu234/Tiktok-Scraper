@@ -49,12 +49,12 @@ st.markdown("""
             border-top: 1px solid #ddd;
         }
 
-        section[data-testid="stSidebar"] a {
+        section[data-testid="stSidebar"] a span {
             color: #007bff !important;
             font-weight: bold !important;
         }
 
-        section[data-testid="stSidebar"] a:hover {
+        section[data-testid="stSidebar"] a:hover span {
             text-decoration: underline;
         }
 
