@@ -2,9 +2,9 @@ import streamlit as st
 from auth import get_authenticator
 from style import inject_custom_css
 
-inject_custom_css()
-
 st.set_page_config(page_title="How We Collect Data | KOMI Group", page_icon="📊")
+
+inject_custom_css()
 
 # --- AUTHENTICATION ---
 authenticator = get_authenticator()
