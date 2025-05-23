@@ -5,7 +5,10 @@ from style import inject_custom_css
 
 # Page config
 st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="centered")
+
 inject_custom_css()
+
+st.sidebar.image("logo_2.png")
 
 # --- AUTHENTICATION ---
 authenticator = get_authenticator()
