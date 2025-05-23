@@ -15,7 +15,7 @@ if not st.session_state.get("authentication_status"):
 
 # --- Show logout in sidebar ---
 authenticator.logout("Logout", location="sidebar")
-st.sidebar.image("logo_2.png", width=150)
+st.sidebar.image("logo_2.png")
 
 # --- STYLES ---
 st.markdown("""
