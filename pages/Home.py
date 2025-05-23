@@ -23,7 +23,7 @@ st.sidebar.image("logo_2.png")
 
 
 # --- LOGO & TITLE ---
-st.image("komi_logo.png")
+st.image("komi_logo.png", width =100)
 st.title("KOMI Radar")
 st.caption("Powered by KOMI Insights!")
 st.markdown('<div class="header-divider"></div>', unsafe_allow_html=True)
