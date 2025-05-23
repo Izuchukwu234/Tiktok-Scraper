@@ -15,6 +15,7 @@ if not st.session_state.get("authentication_status"):
 
 # --- Show logout in sidebar ---
 authenticator.logout("Logout", location="sidebar")
+st.sidebar.image("komi_logo.png", use_column_width=True)
 
 # --- STYLES ---
 st.markdown("""
