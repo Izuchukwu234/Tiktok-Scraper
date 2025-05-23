@@ -54,6 +54,10 @@ st.markdown("""
             font-weight: bold !important;
         }
 
+        section[data-testid="stSidebar"] a:hover {
+            text-decoration: underline;
+        }
+
     </style>
 """, unsafe_allow_html=True)
 
