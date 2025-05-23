@@ -5,9 +5,12 @@ from ensembledata.api import EDClient
 from io import BytesIO
 import numpy as np
 from auth import get_authenticator
+from style import inject_custom_css
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="KOMI Scraper | KOMI Group", page_icon="komi_logo", layout="centered")
+
+inject_custom_css()
 
 # --- AUTHENTICATION ---
 authenticator = get_authenticator()
@@ -26,53 +29,53 @@ st.sidebar.image("logo_2.png")
 API_TOKEN = "lSNX5D8FW02vlTX4"
 client = EDClient(API_TOKEN)
 
-# --- CUSTOM CSS ---
-st.markdown("""
-    <style>
-        body {
-            background-color: #f5f7fa;
-            font-family: 'Segoe UI', sans-serif;
-        }
-        .main {
-            background-color: #ffffff;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            margin-top: 2rem;
-        }
-        .header-divider {
-            border-top: 2px solid #e0e0e0;
-            margin-top: 1rem;
-            margin-bottom: 2rem;
-        }
-        .stButton>button {
-            background-color: #007bff;
-            color: white;
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-        }
-        .stDownloadButton>button {
-            background-color: #28a745;
-            color: white;
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            margin-top: 1rem;
-        }
-        footer {
-            visibility: hidden;
-        }
-        .footer {
-            font-size: 0.85rem;
-            color: #888;
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 1rem;
-            border-top: 1px solid #ddd;
-        }
-    </style>
-""", unsafe_allow_html=True)
+# # --- CUSTOM CSS ---
+# st.markdown("""
+#     <style>
+#         body {
+#             background-color: #f5f7fa;
+#             font-family: 'Segoe UI', sans-serif;
+#         }
+#         .main {
+#             background-color: #ffffff;
+#             border-radius: 12px;
+#             padding: 2rem;
+#             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+#             margin-top: 2rem;
+#         }
+#         .header-divider {
+#             border-top: 2px solid #e0e0e0;
+#             margin-top: 1rem;
+#             margin-bottom: 2rem;
+#         }
+#         .stButton>button {
+#             background-color: #007bff;
+#             color: white;
+#             border-radius: 8px;
+#             padding: 0.5rem 1rem;
+#             font-size: 1rem;
+#         }
+#         .stDownloadButton>button {
+#             background-color: #28a745;
+#             color: white;
+#             border-radius: 8px;
+#             padding: 0.5rem 1rem;
+#             font-size: 1rem;
+#             margin-top: 1rem;
+#         }
+#         footer {
+#             visibility: hidden;
+#         }
+#         .footer {
+#             font-size: 0.85rem;
+#             color: #888;
+#             text-align: center;
+#             margin-top: 3rem;
+#             padding-top: 1rem;
+#             border-top: 1px solid #ddd;
+#         }
+#     </style>
+# """, unsafe_allow_html=True)
 
 # --- INIT SESSION STATE ---
 if 'scraped_df' not in st.session_state:
