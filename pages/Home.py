@@ -48,6 +48,15 @@ st.markdown("""
             padding-top: 1rem;
             border-top: 1px solid #ddd;
         }
+
+        section[data-testid="stSidebar"] a {
+            color: #007bff !important;
+            font-weight: bold !important;
+        }
+
+        section[data-testid="stSidebar"] a:hover {
+            text-decoration: underline;
+        }
     </style>
 """, unsafe_allow_html=True)
 
