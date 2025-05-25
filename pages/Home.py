@@ -112,15 +112,15 @@ if not st.session_state.get("authentication_status"):
     st.warning("🔒 Please log in first.")
     st.stop()
 
-# Sidebar untouched
+# Sidebar
 authenticator.logout("Logout", location="sidebar")
 st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 st.sidebar.image("logo_2.png")
 
-# Logo and title
-st.image("komi_logo.png", width=100)
-st.title("KOMI Radar")
-st.caption("Powered by KOMI Insights!")
+# # Logo and title
+# st.image("komi_logo.png", width=100)
+# st.title("KOMI Radar")
+# st.caption("Powered by KOMI Insights!")
 
 # Beautiful styled content container
 st.markdown("""
