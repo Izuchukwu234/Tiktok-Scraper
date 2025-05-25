@@ -126,7 +126,6 @@ st.sidebar.image("logo_2.png")
 st.markdown("""
 <div class="komi-home-container">
     <h3>Welcome to the KOMI Radar 👋</h3>
-    <small>Powered by KOMI Insights!</small>
     <p>A unified platform to extract social media content from various platforms like:</p>
     <ul>
         <li>TikTok</li>
