@@ -3,10 +3,24 @@ import streamlit as st
 def inject_custom_css():
     st.markdown("""
         <style>
-            /* GLOBAL STYLES */
+            /* Global Styling */
             body {
                 background-color: #f5f7fa;
                 font-family: 'Segoe UI', sans-serif;
+            }
+
+            .main {
+                background-color: #ffffff;
+                border-radius: 12px;
+                padding: 2rem;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+                margin-top: 2rem;
+            }
+
+            .header-divider {
+                border-top: 2px solid #e0e0e0;
+                margin-top: 1rem;
+                margin-bottom: 2rem;
             }
 
             h1 {
@@ -22,24 +36,7 @@ def inject_custom_css():
                 border-top: 1px solid #ddd;
             }
 
-            /* LOGIN FORM STYLING */
-            div[data-testid="stForm"] {
-                background-color: #ffffff;
-                padding: 2.5rem;
-                border-radius: 12px;
-                border: 1px solid #cce0ff;
-                box-shadow: 0 8px 20px rgba(0, 123, 255, 0.15);
-                margin: 2rem auto;
-                width: 100% !important;
-                max-width: 650px;
-            }
-
-            .block-container {
-                max-width: 1000px;
-                padding-top: 2rem;
-            }
-
-            /* SIDEBAR CONTAINER */
+            /* Sidebar Container */
             section[data-testid="stSidebar"] > div:first-child {
                 background-color: #ffffff;
                 border-radius: 16px;
@@ -48,7 +45,7 @@ def inject_custom_css():
                 margin: 15px;
             }
 
-            /* SIDEBAR LINK STYLING */
+            /* Sidebar Link Styling */
             section[data-testid="stSidebar"] a span {
                 color: #007bff !important;
                 font-weight: bold !important;
@@ -61,15 +58,16 @@ def inject_custom_css():
                 text-decoration: underline !important;
             }
 
-            /* LOGOUT BUTTON MARGIN */
+            /* Logout Button Margin */
             .block-container .stButton {
                 margin-bottom: 25px;
             }
 
-            /* SIDEBAR LOGO SPACING */
+            /* Logo Spacing */
             section[data-testid="stSidebar"] img {
                 margin-top: 20px;
                 margin-bottom: 10px;
             }
+
         </style>
     """, unsafe_allow_html=True)
