@@ -12,6 +12,15 @@ st.markdown("""
             display: none;
         }
 
+        /* Remove unwanted Streamlit form wrapper spacing */
+        [data-testid="stForm"] {
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+            box-shadow: none !important;
+            background: none !important;
+        }
+
         /* Login container */
         .komi-login-container {
             background: linear-gradient(135deg, #ffffff, #e8f0fe);
@@ -51,47 +60,47 @@ st.markdown("""
         }
 
         /* Form container */
-        [data-testid="stForm"] {
+        .komi-login-container .stForm {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            background: #f8fafc;
+            gap: 1.2rem;
+            background: #ffffff;
             padding: 1.5rem;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 123, 255, 0.1);
         }
 
         /* Form labels */
-        [data-testid="stForm"] label {
+        .komi-login-container [data-testid="stForm"] label {
             font-size: 1rem;
             color: #2d3748;
             font-weight: 500;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.4rem;
         }
 
         /* Form inputs */
-        [data-testid="stForm"] input {
+        .komi-login-container [data-testid="stForm"] input {
             border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 10px 12px;
+            border-radius: 10px;
+            padding: 12px 14px;
             font-size: 1rem;
             font-family: 'Inter', 'Segoe UI', sans-serif;
-            background-color: #ffffff;
+            background-color: #f8fafc;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        [data-testid="stForm"] input:focus {
+        .komi-login-container [data-testid="stForm"] input:focus {
             border-color: #007bff;
             box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
             outline: none;
         }
 
         /* Login button */
-        [data-testid="stForm"] button {
+        .komi-login-container [data-testid="stForm"] button {
             background: linear-gradient(to right, #007bff, #00d4ff);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 12px 24px;
             font-weight: 600;
             font-size: 1rem;
@@ -101,14 +110,14 @@ st.markdown("""
             cursor: pointer;
         }
 
-        [data-testid="stForm"] button:hover {
+        .komi-login-container [data-testid="stForm"] button:hover {
             box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
             transform: translateY(-2px);
         }
 
         /* Error message */
         .komi-login-container [data-testid="stAlert"] {
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 1rem;
             background-color: #fff1f0;
             color: #c53030;
