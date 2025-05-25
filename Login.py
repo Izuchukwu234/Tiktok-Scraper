@@ -51,14 +51,18 @@ st.markdown("""
         }
 
         /* Form container */
-        .komi-login-container form {
+        [data-testid="stForm"] {
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.1);
         }
 
         /* Form labels */
-        .komi-login-container label {
+        [data-testid="stForm"] label {
             font-size: 1rem;
             color: #2d3748;
             font-weight: 500;
@@ -66,26 +70,24 @@ st.markdown("""
         }
 
         /* Form inputs */
-        .komi-login-container input[type="text"],
-        .komi-login-container input[type="password"] {
+        [data-testid="stForm"] input {
             border: 1px solid #e2e8f0;
             border-radius: 8px;
             padding: 10px 12px;
             font-size: 1rem;
             font-family: 'Inter', 'Segoe UI', sans-serif;
+            background-color: #ffffff;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            background-color: #f8fafc;
         }
 
-        .komi-login-container input[type="text"]:focus,
-        .komi-login-container input[type="password"]:focus {
+        [data-testid="stForm"] input:focus {
             border-color: #007bff;
             box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
             outline: none;
         }
 
         /* Login button */
-        .komi-login-container button[kind="primary"] {
+        [data-testid="stForm"] button {
             background: linear-gradient(to right, #007bff, #00d4ff);
             color: white;
             border: none;
@@ -96,11 +98,10 @@ st.markdown("""
             text-transform: uppercase;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             width: 100%;
-            margin-top: 1rem;
             cursor: pointer;
         }
 
-        .komi-login-container button[kind="primary"]:hover {
+        [data-testid="stForm"] button:hover {
             box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
             transform: translateY(-2px);
         }
