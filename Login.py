@@ -13,19 +13,20 @@ st.markdown("""
             display: none;
         }
 
-        /* Reset Streamlit form wrapper to remove empty container */
+        /* Reset all Streamlit wrappers to remove empty container */
+        .komi-login-container > div:not(.stForm, .stImage, .stMarkdown, .stCaption, .stAlert) {
+            display: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            height: 0 !important;
+        }
+
         [data-testid="stForm"] {
             margin: 0 !important;
             padding: 0 !important;
             border: none !important;
             box-shadow: none !important;
             background: transparent !important;
-        }
-
-        /* Ensure no extra divs create unwanted space */
-        .komi-login-container > div:not(.stForm) {
-            margin: 0 !important;
-            padding: 0 !important;
         }
 
         /* Login container */
@@ -79,7 +80,7 @@ st.markdown("""
 
         /* Form labels */
         .komi-login-container [data-testid="stTextInput"] label,
-        .komi-login-container [data-testid="stTextInput"] div[role="textbox"] {
+        .komi-login-container div[role="textbox"] label {
             font-size: 1rem;
             color: #2d3748;
             font-weight: 500;
@@ -88,7 +89,9 @@ st.markdown("""
 
         /* Form inputs */
         .komi-login-container [data-testid="stTextInput"] input,
-        .komi-login-container [data-testid="stTextInput"] div[role="textbox"] {
+        .komi-login-container input[type="text"],
+        .komi-login-container input[type="password"],
+        .komi-login-container div[role="textbox"] {
             border: 1px solid #e2e8f0;
             border-radius: 10px;
             padding: 12px 14px;
@@ -101,14 +104,18 @@ st.markdown("""
         }
 
         .komi-login-container [data-testid="stTextInput"] input:focus,
-        .komi-login-container [data-testid="stTextInput"] div[role="textbox"]:focus {
+        .komi-login-container input[type="text"]:focus,
+        .komi-login-container input[type="password"]:focus,
+        .komi-login-container div[role="textbox"]:focus {
             border-color: #007bff;
             box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
             outline: none;
         }
 
         /* Login button */
-        .komi-login-container [data-testid="stButton"] button {
+        .komi-login-container [data-testid="stButton"] button,
+        .komi-login-container button[kind="primary"],
+        .komi-login-container button {
             background: linear-gradient(to right, #007bff, #00d4ff);
             color: white;
             border: none;
@@ -122,7 +129,9 @@ st.markdown("""
             cursor: pointer;
         }
 
-        .komi-login-container [data-testid="stButton"] button:hover {
+        .komi-login-container [data-testid="stButton"] button:hover,
+        .komi-login-container button[kind="primary"]:hover,
+        .komi-login-container button:hover {
             box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
             transform: translateY(-2px);
         }
