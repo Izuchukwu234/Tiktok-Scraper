@@ -6,10 +6,10 @@ from style import inject_custom_css
 # Page config
 st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="centered")
 
-# Load global styles (sidebar, buttons, etc.)
+# Load global styles (sidebar, etc.)
 inject_custom_css()
 
-# --- Page-Specific Styling (content only) ---
+# --- Page-Specific Styling ---
 st.markdown("""
     <style>
         .komi-home-container {
@@ -19,7 +19,7 @@ st.markdown("""
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             margin-top: 30px;
         }
-        .komi-home-container h2 {
+        .komi-home-container h2, .komi-home-container h3 {
             color: #007bff;
             margin-bottom: 1rem;
         }
@@ -46,7 +46,7 @@ if not st.session_state.get("authentication_status"):
     st.warning("🔒 Please log in first.")
     st.stop()
 
-# --- Sidebar content (preserved) ---
+# --- Sidebar content ---
 authenticator.logout("Logout", location="sidebar")
 st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 st.sidebar.image("logo_2.png")
@@ -56,15 +56,13 @@ st.image("komi_logo.png", width=100)
 st.title("KOMI Radar")
 st.caption("Powered by KOMI Insights!")
 
-# --- Styled Content Container ---
+# --- START container ---
 st.markdown('<div class="komi-home-container">', unsafe_allow_html=True)
 
-st.markdown("### Welcome to the KOMI Radar 👋")
-st.write("""
-A unified platform to extract social media content from various platforms like:
-""")
+st.markdown("### Welcome to the KOMI Radar 👋", unsafe_allow_html=True)
 
 st.markdown("""
+A unified platform to extract social media content from various platforms like:
 <ul>
     <li>TikTok</li>
     <li>Reddit (Development of the app ongoing 😊)</li>
@@ -78,11 +76,12 @@ st.markdown("""
 
 st.markdown("""
 <div class="komi-home-note">
-🚧 <strong>Note:</strong> This application is intended <strong>only for internal use by KOMI Group</strong>.  
+🚧 <strong>Note:</strong> This application is intended <strong>only for internal use by KOMI Group</strong>.<br>
 Unauthorised access or distribution is prohibited.
 </div>
 """, unsafe_allow_html=True)
 
+# --- END container ---
 st.markdown('</div>', unsafe_allow_html=True)
 
 # --- Footer ---
