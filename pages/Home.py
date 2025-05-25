@@ -42,6 +42,7 @@ st.markdown("""
         .komi-home-container ul {
             padding-left: 1.2rem;
             margin-bottom: 1.5rem;
+            list-style-type: none; /* Remove bullet points */
         }
 
         .komi-home-container ul li {
@@ -52,6 +53,7 @@ st.markdown("""
             padding: 8px 12px;
             border-radius: 8px;
             transition: background 0.3s;
+            font-weight: bold; /* Make text bold */
         }
 
         .komi-home-container ul li:hover {
