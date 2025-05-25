@@ -13,20 +13,16 @@ st.markdown("""
             display: none;
         }
 
-        /* Reset all Streamlit wrappers to remove empty container */
-        .komi-login-container > div:not(.stImage, .stMarkdown, .stCaption, .stAlert, .stTextInput, .stButton) {
+        /* Reset all possible Streamlit wrappers to remove empty container */
+        .komi-login-container > div:not(.stImage, .stMarkdown, .stCaption, .stAlert, .komi-login-form),
+        [data-testid="stForm"], [data-testid="stBlock"], [class*="st-emotion-cache"] > div:not(.stImage, .stMarkdown, .stCaption, .stAlert, .komi-login-form) {
             display: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            height: 0 !important;
-        }
-
-        [data-testid="stForm"], [data-testid="stBlock"] {
             margin: 0 !important;
             padding: 0 !important;
             border: none !important;
             box-shadow: none !important;
             background: transparent !important;
+            height: 0 !important;
         }
 
         /* Login container */
@@ -68,7 +64,7 @@ st.markdown("""
         }
 
         /* Form container */
-        .komi-login-form {
+        .komi-login-container .komi-login-form {
             display: flex;
             flex-direction: column;
             gap: 1.2rem;
@@ -79,7 +75,8 @@ st.markdown("""
         }
 
         /* Form labels */
-        .komi-login-container [data-testid="stTextInput"] label {
+        .komi-login-container label,
+        .komi-login-container [class*="st-emotion-cache"] label {
             font-size: 1rem;
             color: #2d3748;
             font-weight: 500;
@@ -87,7 +84,11 @@ st.markdown("""
         }
 
         /* Form inputs */
-        .komi-login-container [data-testid="stTextInput"] input {
+        .komi-login-container input,
+        .komi-login-container [data-testid="stTextInput"] input,
+        .komi-login-container input[type="text"],
+        .komi-login-container input[type="password"],
+        .komi-login-container [class*="st-emotion-cache"] input {
             border: 1px solid #e2e8f0;
             border-radius: 10px;
             padding: 12px 14px;
@@ -99,14 +100,21 @@ st.markdown("""
             box-sizing: border-box;
         }
 
-        .komi-login-container [data-testid="stTextInput"] input:focus {
+        .komi-login-container input:focus,
+        .komi-login-container [data-testid="stTextInput"] input:focus,
+        .komi-login-container input[type="text"]:focus,
+        .komi-login-container input[type="password"]:focus,
+        .komi-login-container [class*="st-emotion-cache"] input:focus {
             border-color: #007bff;
             box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
             outline: none;
         }
 
         /* Login button */
-        .komi-login-container [data-testid="stButton"] button {
+        .komi-login-container button,
+        .komi-login-container [data-testid="stButton"] button,
+        .komi-login-container button[kind="primary"],
+        .komi-login-container [class*="st-emotion-cache"] button {
             background: linear-gradient(to right, #007bff, #00d4ff);
             color: white;
             border: none;
@@ -115,12 +123,15 @@ st.markdown("""
             font-weight: 600;
             font-size: 1rem;
             text-transform: uppercase;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
             width: 100%;
             cursor: pointer;
         }
 
-        .komi-login-container [data-testid="stButton"] button:hover {
+        .komi-login-container button:hover,
+        .komi-login-container [data-testid="stButton"] button:hover,
+        .komi-login-container button[kind="primary"]:hover,
+        .komi-login-container [class*="st-emotion-cache"] button:hover {
             box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
             transform: translateY(-2px);
         }
@@ -187,34 +198,28 @@ with col2:
 # Add horizontal line and spacing
 st.markdown('<div class="komi-divider"></div>', unsafe_allow_html=True)
 
-# Custom login form
+# Login form
 st.markdown('<div class="komi-login-form">', unsafe_allow_html=True)
+fields = {
+    "Form name": "Login",
+    "Username": "Username",
+    "Password": "Password",
+    "Login button": "Login"
+}
 
-# Username and password inputs
-username = st.text_input("Username", key="login_username")
-password = st.text_input("Password", type="password", key="login_password")
+login_result = authenticator.login(fields=fields, location='main')
 
-# Login button
-if st.button("Login", key="login_button"):
-    # Attempt authentication
-    try:
-        # Assuming authenticator has a method to check credentials
-        # This may need adjustment based on auth.py
-        login_result = authenticator.login_manual(username, password)
-        if login_result:
-            name, authentication_status, username = login_result
-            if authentication_status:
-                st.session_state["authentication_status"] = True
-                st.session_state["name"] = name
-                st.session_state["username"] = username
-                st.experimental_rerun()
-            else:
-                st.error("Incorrect username or password")
-        else:
-            st.error("Authentication failed")
-    except Exception as e:
-        st.error(f"Error during authentication: {str(e)}")
+if login_result:
+    name, authentication_status, username = login_result
+else:
+    name = authentication_status = username = None
 
+# Handle outcomes
+if authentication_status:
+    st.session_state["authentication_status"] = True
+    st.experimental_rerun()
+elif authentication_status is False:
+    st.error("Incorrect username or password")
 st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown('</div>', unsafe_allow_html=True)
