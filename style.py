@@ -32,8 +32,9 @@ def inject_custom_css():
                 border: 1px solid #d6e4ff;
                 border-radius: 12px;
                 box-shadow: 0 6px 16px rgba(0, 123, 255, 0.1);
-                max-width: 420px;
-                margin: 0 auto 2rem auto;
+                max-width: 600px;          /* wider form */
+                width: 100%;               /* responsive */
+                margin: 0 auto 2rem auto;  /* center horizontally */
             }
 
             /* Style inputs inside the form */
