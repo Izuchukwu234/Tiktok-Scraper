@@ -9,22 +9,9 @@ def inject_custom_css():
                 font-family: 'Segoe UI', sans-serif;
             }
 
-            .main {
-                background-color: #ffffff;
-                border-radius: 12px;
-                padding: 2rem;
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-                margin-top: 2rem;
-            }
-
-            .header-divider {
-                border-top: 2px solid #e0e0e0;
-                margin-top: 1rem;
-                margin-bottom: 2rem;
-            }
-
-            h1 {
+            h1, h2 {
                 color: #007bff;
+                font-weight: 600;
             }
 
             .footer {
@@ -45,7 +32,6 @@ def inject_custom_css():
                 margin: 15px;
             }
 
-            /* Sidebar Link Styling */
             section[data-testid="stSidebar"] a span {
                 color: #007bff !important;
                 font-weight: bold !important;
@@ -58,16 +44,40 @@ def inject_custom_css():
                 text-decoration: underline !important;
             }
 
-            /* Logout Button Margin */
-            .block-container .stButton {
-                margin-bottom: 25px;
-            }
-
-            /* Logo Spacing */
             section[data-testid="stSidebar"] img {
                 margin-top: 20px;
                 margin-bottom: 10px;
             }
 
+            .block-container .stButton {
+                margin-bottom: 25px;
+            }
+
+            /* Login Container */
+            .login-container {
+                background-color: #ffffff;
+                padding: 3rem 2rem;
+                border-radius: 12px;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+                max-width: 400px;
+                margin: 3rem auto;
+                text-align: center;
+                animation: fadeIn 0.6s ease-in-out;
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            .komi-blue {
+                color: #007bff;
+            }
+
+            hr {
+                border: none;
+                border-top: 1px solid #ddd;
+                margin: 1.5rem 0;
+            }
         </style>
     """, unsafe_allow_html=True)
