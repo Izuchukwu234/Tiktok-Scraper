@@ -118,7 +118,7 @@ st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 st.sidebar.image("logo_2.png")
 
 # # Logo and title
-# st.image("komi_logo.png", width=100)
+st.image("komi_logo.png", width=100)
 # st.title("KOMI Radar")
 # st.caption("Powered by KOMI Insights!")
 
