@@ -1,5 +1,6 @@
 import streamlit as st
 from auth import get_authenticator
+from datetime import datetime
 
 # Page config
 st.set_page_config(page_title="Login | KOMI Radar", page_icon="🔐", layout="centered")
@@ -12,13 +13,19 @@ st.markdown("""
             display: none;
         }
 
-        /* Remove unwanted Streamlit form wrapper spacing */
+        /* Reset Streamlit form wrapper to remove empty container */
         [data-testid="stForm"] {
             margin: 0 !important;
             padding: 0 !important;
             border: none !important;
             box-shadow: none !important;
-            background: none !important;
+            background: transparent !important;
+        }
+
+        /* Ensure no extra divs create unwanted space */
+        .komi-login-container > div:not(.stForm) {
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
         /* Login container */
@@ -71,7 +78,8 @@ st.markdown("""
         }
 
         /* Form labels */
-        .komi-login-container [data-testid="stForm"] label {
+        .komi-login-container [data-testid="stTextInput"] label,
+        .komi-login-container [data-testid="stTextInput"] div[role="textbox"] {
             font-size: 1rem;
             color: #2d3748;
             font-weight: 500;
@@ -79,7 +87,8 @@ st.markdown("""
         }
 
         /* Form inputs */
-        .komi-login-container [data-testid="stForm"] input {
+        .komi-login-container [data-testid="stTextInput"] input,
+        .komi-login-container [data-testid="stTextInput"] div[role="textbox"] {
             border: 1px solid #e2e8f0;
             border-radius: 10px;
             padding: 12px 14px;
@@ -87,16 +96,19 @@ st.markdown("""
             font-family: 'Inter', 'Segoe UI', sans-serif;
             background-color: #f8fafc;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .komi-login-container [data-testid="stForm"] input:focus {
+        .komi-login-container [data-testid="stTextInput"] input:focus,
+        .komi-login-container [data-testid="stTextInput"] div[role="textbox"]:focus {
             border-color: #007bff;
             box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
             outline: none;
         }
 
         /* Login button */
-        .komi-login-container [data-testid="stForm"] button {
+        .komi-login-container [data-testid="stButton"] button {
             background: linear-gradient(to right, #007bff, #00d4ff);
             color: white;
             border: none;
@@ -110,7 +122,7 @@ st.markdown("""
             cursor: pointer;
         }
 
-        .komi-login-container [data-testid="stForm"] button:hover {
+        .komi-login-container [data-testid="stButton"] button:hover {
             box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
             transform: translateY(-2px);
         }
@@ -205,10 +217,11 @@ st.markdown('</div>', unsafe_allow_html=True)
 st.markdown('<div class="komi-divider"></div>', unsafe_allow_html=True)
 
 # Footer
+current_year = datetime.now().year
 st.markdown(
-    """
+    f"""
     <div class="footer">
-        © 2025 KOMI Group. All rights reserved.<br>
+        © {current_year} KOMI Group. All rights reserved.<br>
         KOMI Radar is for internal use only.
     </div>
     """,
