@@ -9,69 +9,99 @@ st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="cen
 # Inject global styles
 inject_custom_css()
 
-# Page-specific CSS with text designs
+# Page-specific CSS with enhanced designs
 st.markdown("""
     <style>
         .komi-home-container {
-            background: linear-gradient(to bottom right, #fefefe, #f2f8ff);
-            padding: 2.5rem 3rem;
+            background: linear-gradient(135deg, #ffffff, #e8f0fe);
+            padding: 3rem 3.5rem;
             border-radius: 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             margin-top: 30px;
-            font-family: 'Segoe UI', sans-serif;
-            transition: box-shadow 0.3s ease;
+            font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            border: 1px solid rgba(0, 123, 255, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .komi-home-container:hover {
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 14px 32px rgba(0, 123, 255, 0.2);
+            transform: scale(1.02);
         }
 
         .komi-home-container h3 {
-            color: #007bff;
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            text-shadow: 1px 1px 0 #e2eaff;
+            font-size: 2rem;
+            background: linear-gradient(to right, #007bff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            text-align: center;
         }
 
         .komi-home-container p {
-            font-size: 1.05rem;
-            color: #333;
-            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.2px;
+            line-height: 1.6;
         }
 
         .komi-home-container ul {
-            padding-left: 1.2rem;
+            padding-left: 0;
             margin-bottom: 1.5rem;
-            list-style-type: none; /* Remove bullet points */
+            list-style-type: none; /* No bullet points */
         }
 
         .komi-home-container ul li {
-            margin-bottom: 0.7rem;
-            font-size: 1.02rem;
-            color: #222;
-            background-color: #e9f3ff;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: background 0.3s;
-            font-weight: bold; /* Make text bold */
+            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
+            color: #1a202c;
+            background-color: #edf5ff;
+            padding: 10px 15px;
+            border-radius: 10px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            font-weight: bold; /* Bold text */
+            display: flex;
+            align-items: center;
+        }
+
+        .komi-home-container ul li::before {
+            content: '🌐';
+            margin-right: 10px;
+            font-size: 1.2rem;
         }
 
         .komi-home-container ul li:hover {
-            background-color: #d2e9ff;
-            cursor: default;
+            background-color: #c3e0ff;
+            transform: translateX(5px);
         }
 
         .komi-home-note {
             margin-top: 2rem;
             font-weight: 500;
-            font-size: 0.95rem;
-            color: #444;
-            border-top: 1px solid #ddd;
-            padding-top: 1.2rem;
-            background-color: #fff8e1;
-            border-left: 4px solid #ffc107;
-            padding-left: 1rem;
-            border-radius: 8px;
+            font-size: 0.98rem;
+            color: #2d3748;
+            border-top: 1px solid #e2e8f0;
+            padding: 1.2rem;
+            background-color: #fffaf0;
+            border-left: 5px solid #f6ad55;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(246, 173, 85, 0.2);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .komi-home-note:hover {
+            box-shadow: 0 4px 12px rgba(246, 173, 85, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1rem;
         }
     </style>
 """, unsafe_allow_html=True)
