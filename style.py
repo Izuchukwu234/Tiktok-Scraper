@@ -87,12 +87,6 @@ def inject_custom_css():
                 transition: background 0.3s ease, color 0.3s ease;
             }
 
-            section[data-testid="stSidebar"] a span::before {
-                content: '🔗';
-                margin-right: 8px;
-                font-size: 1.1rem;
-            }
-
             section[data-testid="stSidebar"] a:hover span {
                 color: #0056b3 !important;
                 background-color: #edf5ff !important;
