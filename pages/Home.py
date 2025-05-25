@@ -19,12 +19,7 @@ authenticator.logout("Logout", location="sidebar")
 st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 st.sidebar.image("logo_2.png")
 
-# Logo and title
-st.image("komi_logo.png", width=100)
-st.title("KOMI Radar")
-st.caption("Powered by KOMI Insights!")
-
-# Custom HTML container
+# Full HTML content
 st.markdown("""
     <style>
         .komi-home-container {
@@ -34,32 +29,48 @@ st.markdown("""
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
             margin-top: 20px;
             font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+        }
+
+        .komi-home-container img {
+            width: 100px;
+            margin-bottom: 10px;
+        }
+
+        .komi-home-container h1 {
+            color: #007bff;
+            margin-bottom: 5px;
+        }
+
+        .komi-home-container .caption {
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
         }
 
         .komi-home-container h3 {
-            color: #007bff;
-            font-size: 1.75rem;
-            margin-bottom: 15px;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
         }
 
-        .komi-home-container p,
-        .custom-item {
-            font-size: 1.05rem;
+        .komi-home-container p {
             font-weight: bold;
-            color: #333;
-            margin-bottom: 12px;
+            font-size: 1rem;
+            margin-bottom: 20px;
         }
 
         .custom-item {
             background-color: #e9f3ff;
-            padding: 10px 16px;
+            padding: 12px 18px;
             border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-            transition: background 0.3s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            margin: 8px auto;
+            max-width: 400px;
+            transition: background 0.3s ease;
         }
 
         .custom-item:hover {
-            background-color: #d2e9ff;
+            background-color: #d0e7ff;
         }
 
         .komi-home-note {
@@ -70,17 +81,25 @@ st.markdown("""
             border-radius: 8px;
             font-weight: bold;
             color: #444;
+            text-align: left;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .footer {
             text-align: center;
             margin-top: 40px;
             color: #888;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
     </style>
 
     <div class="komi-home-container">
+        <img src="https://raw.githubusercontent.com/your-repo/komi_logo.png" alt="KOMI Logo">
+        <h1>KOMI Radar</h1>
+        <div class="caption">Powered by KOMI Insights!</div>
+
         <h3>Welcome to the KOMI Radar 👋</h3>
         <p>A unified platform to extract social media content from various platforms like:</p>
 
