@@ -33,35 +33,31 @@ st.markdown("""
             text-shadow: 1px 1px 0 #e2eaff;
         }
 
-        .komi-home-container p {
+        .komi-home-container p,
+        .komi-home-container .custom-item {
             font-size: 1.05rem;
             color: #333;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
 
-        .komi-home-container ul {
-            padding-left: 1.2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .komi-home-container ul li {
-            margin-bottom: 0.7rem;
-            font-size: 1.02rem;
-            color: #222;
+        .komi-home-container .custom-item {
             background-color: #e9f3ff;
-            padding: 8px 12px;
+            padding: 10px 16px;
             border-radius: 8px;
+            margin-bottom: 12px;
+            display: block;
             transition: background 0.3s;
         }
 
-        .komi-home-container ul li:hover {
+        .komi-home-container .custom-item:hover {
             background-color: #d2e9ff;
             cursor: default;
         }
 
         .komi-home-note {
             margin-top: 2rem;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.95rem;
             color: #444;
             border-top: 1px solid #ddd;
@@ -95,15 +91,15 @@ st.markdown("""
 <div class="komi-home-container">
     <h3>Welcome to the KOMI Radar 👋</h3>
     <p>A unified platform to extract social media content from various platforms like:</p>
-    <ul>
-        <li>TikTok</li>
-        <li>Reddit (Development of the app ongoing 😊)</li>
-        <li>Instagram 🕐</li>
-        <li>YouTube 🕐</li>
-        <li>Threads 🕐</li>
-        <li>Snapchat 🕐</li>
-        <li>Twitter 🕐</li>
-    </ul>
+
+    <div class="custom-item">TikTok</div>
+    <div class="custom-item">Reddit (Development of the app ongoing 😊)</div>
+    <div class="custom-item">Instagram 🕐</div>
+    <div class="custom-item">YouTube 🕐</div>
+    <div class="custom-item">Threads 🕐</div>
+    <div class="custom-item">Snapchat 🕐</div>
+    <div class="custom-item">Twitter 🕐</div>
+
     <div class="komi-home-note">
         🚧 <strong>Note:</strong> This application is intended <strong>only for internal use by KOMI Group</strong>.<br>
         Unauthorised access or distribution is prohibited.
