@@ -3,7 +3,6 @@ import streamlit as st
 def inject_custom_css():
     st.markdown("""
         <style>
-            /* Global Styling */
             body {
                 background-color: #f5f7fa;
                 font-family: 'Segoe UI', sans-serif;
@@ -11,7 +10,10 @@ def inject_custom_css():
 
             h1, h2 {
                 color: #007bff;
-                font-weight: 600;
+            }
+
+            .komi-blue {
+                color: #007bff;
             }
 
             .footer {
@@ -23,61 +25,38 @@ def inject_custom_css():
                 border-top: 1px solid #ddd;
             }
 
-            /* Sidebar Container */
-            section[data-testid="stSidebar"] > div:first-child {
-                background-color: #ffffff;
-                border-radius: 16px;
-                padding: 25px 20px;
-                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-                margin: 15px;
-            }
-
-            section[data-testid="stSidebar"] a span {
-                color: #007bff !important;
-                font-weight: bold !important;
-                text-transform: uppercase !important;
-                font-size: 14px !important;
-            }
-
-            section[data-testid="stSidebar"] a:hover span {
-                color: #0056b3 !important;
-                text-decoration: underline !important;
-            }
-
-            section[data-testid="stSidebar"] img {
-                margin-top: 20px;
-                margin-bottom: 10px;
-            }
-
-            .block-container .stButton {
-                margin-bottom: 25px;
-            }
-
-            /* Login Container */
-            .login-container {
-                background-color: #ffffff;
-                padding: 3rem 2rem;
+            /* Login Form Box */
+            .login-form-wrapper {
+                background: #fff;
+                padding: 2.5rem 2rem;
                 border-radius: 12px;
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+                border: 1px solid #e0e0e0;
+                box-shadow: 0 4px 20px rgba(0, 123, 255, 0.1);
                 max-width: 400px;
-                margin: 3rem auto;
-                text-align: center;
-                animation: fadeIn 0.6s ease-in-out;
+                margin: 0 auto 3rem auto;
             }
 
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(10px); }
-                to { opacity: 1; transform: translateY(0); }
+            /* Streamlit text inputs inside form */
+            .login-form-wrapper input {
+                border: 1px solid #cce5ff !important;
+                border-radius: 6px !important;
             }
 
-            .komi-blue {
-                color: #007bff;
+            .login-form-wrapper input:focus {
+                border: 1px solid #007bff !important;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.25) !important;
             }
 
-            hr {
-                border: none;
-                border-top: 1px solid #ddd;
-                margin: 1.5rem 0;
+            /* Login button */
+            .login-form-wrapper button {
+                background-color: #007bff !important;
+                color: white !important;
+                border-radius: 6px !important;
+                font-weight: bold !important;
+            }
+
+            .login-form-wrapper button:hover {
+                background-color: #0056b3 !important;
             }
         </style>
     """, unsafe_allow_html=True)
