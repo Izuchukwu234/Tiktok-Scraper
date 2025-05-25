@@ -105,12 +105,15 @@ if st.session_state.get("authentication_status"):
 # Load authenticator
 authenticator = get_authenticator()
 
-# Centered logo, title, and caption
-col1, col2, col3 = st.columns([1, 4, 1])
-with col2:
-    st.image("komi_logo.png", width=120)
-    st.markdown('## Welcome to <span class="komi-blue">KOMI</span> Radar 😊', unsafe_allow_html=True)
-    st.caption("Powered by KOMI Insights!")
+# Center logo, title, and caption using HTML
+st.markdown("""
+    <div style="text-align: center;">
+        <img src="komi_logo.png" width="120">
+        <h2 style="margin-top: 10px; color: #007bff;">Welcome to <span style="color:#0000FF">KOMI</span> Radar 😊</h2>
+        <p style="color: #666; font-size: 0.9em;">Powered by KOMI Insights!</p>
+    </div>
+    <br>
+""", unsafe_allow_html=True)
 
 # Spacer
 st.markdown("<br>", unsafe_allow_html=True)
