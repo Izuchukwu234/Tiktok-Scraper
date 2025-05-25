@@ -101,37 +101,38 @@ from style import inject_custom_css
 # Page config
 st.set_page_config(page_title="Login | KOMI Radar", page_icon="🔐", layout="centered")
 
-# Inject custom CSS
+# Inject CSS
 inject_custom_css()
 
 # Hide sidebar, header, menu
 st.markdown("""
     <style>
-        #MainMenu, footer, header, [data-testid="stSidebar"], button[aria-label="Toggle sidebar"] {
-            display: none;
-        }
+    #MainMenu, footer, header, [data-testid="stSidebar"], button[aria-label="Toggle sidebar"] {
+        display: none;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# Redirect if already authenticated
+# If already authenticated, redirect to Home
 if st.session_state.get("authentication_status"):
     st.switch_page("pages/Home.py")
 
 # Load authenticator
 authenticator = get_authenticator()
 
-# --- Main container ---
-st.markdown('<div class="login-container">', unsafe_allow_html=True)
+# Centered logo, title, and caption
+col1, col2, col3 = st.columns([1, 4, 1])
+with col2:
+    st.image("komi_logo.png", width=120)
+    st.markdown('## Welcome to <span class="komi-blue">KOMI</span> Radar 😊', unsafe_allow_html=True)
+    st.caption("Powered by KOMI Insights!")
 
-# Logo and title
-st.image("komi_logo.png", width=100)
-st.markdown('<h2>Welcome to <span class="komi-blue">KOMI</span> Radar</h2>', unsafe_allow_html=True)
-st.caption("Powered by KOMI Insights")
+# Spacer
+st.markdown("<br>", unsafe_allow_html=True)
 
-# Horizontal line
-st.markdown("<hr>", unsafe_allow_html=True)
+# Login form inside styled div
+st.markdown('<div class="login-form-wrapper">', unsafe_allow_html=True)
 
-# Login Form
 fields = {
     "Form name": "Login",
     "Username": "Username",
@@ -145,23 +146,19 @@ if login_result:
 else:
     name = authentication_status = username = None
 
-# Outcome messages
 if authentication_status:
     st.session_state["authentication_status"] = True
     st.experimental_rerun()
 elif authentication_status is False:
     st.error("Incorrect username or password")
 
+st.markdown('</div>', unsafe_allow_html=True)
+
 # Footer
-st.markdown('<hr>', unsafe_allow_html=True)
-st.markdown(
-    """
+st.markdown("<br><hr>", unsafe_allow_html=True)
+st.markdown("""
     <div class="footer">
         © 2025 KOMI Group. All rights reserved.<br>
         KOMI Radar is for internal use only.
     </div>
-    """,
-    unsafe_allow_html=True
-)
-
-st.markdown('</div>', unsafe_allow_html=True)  # close login-container
+""", unsafe_allow_html=True)
