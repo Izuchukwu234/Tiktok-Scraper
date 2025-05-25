@@ -50,24 +50,42 @@ st.markdown("""
             margin-bottom: 2rem;
         }
 
-        /* Form inputs */
-        .komi-login-container input {
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 10px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        /* Form container */
+        .komi-login-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
-        .komi-login-container input:focus {
+        /* Form labels */
+        .komi-login-container label {
+            font-size: 1rem;
+            color: #2d3748;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Form inputs */
+        .komi-login-container input[type="text"],
+        .komi-login-container input[type="password"] {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 1rem;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: #f8fafc;
+        }
+
+        .komi-login-container input[type="text"]:focus,
+        .komi-login-container input[type="password"]:focus {
             border-color: #007bff;
             box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
             outline: none;
         }
 
         /* Login button */
-        .komi-login-container button {
-            background: linear Commodity: .komi-login-container button {
+        .komi-login-container button[kind="primary"] {
             background: linear-gradient(to right, #007bff, #00d4ff);
             color: white;
             border: none;
@@ -79,15 +97,16 @@ st.markdown("""
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             width: 100%;
             margin-top: 1rem;
+            cursor: pointer;
         }
 
-        .komi-login-container button:hover {
+        .komi-login-container button[kind="primary"]:hover {
             box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
             transform: translateY(-2px);
         }
 
         /* Error message */
-        .komi-login-container .stAlert {
+        .komi-login-container [data-testid="stAlert"] {
             border-radius: 8px;
             padding: 1rem;
             background-color: #fff1f0;
