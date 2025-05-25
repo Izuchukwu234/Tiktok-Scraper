@@ -5,7 +5,7 @@ from datetime import datetime
 # Page config
 st.set_page_config(page_title="Login | KOMI Radar", page_icon="🔐", layout="centered")
 
-# Page-specific CSS with enhanced designs
+# Page-specific CSS with minimal, targeted styles
 st.markdown("""
     <style>
         /* Hide sidebar, header, menu */
@@ -13,16 +13,15 @@ st.markdown("""
             display: none;
         }
 
-        /* Reset all possible Streamlit wrappers to remove empty container */
-        .komi-login-container > div:not(.stImage, .stMarkdown, .stCaption, .stAlert, .komi-login-form),
-        [data-testid="stForm"], [data-testid="stBlock"], [class*="st-emotion-cache"] > div:not(.stImage, .stMarkdown, .stCaption, .stAlert, .komi-login-form) {
-            display: none !important;
+        /* Reset potential wrappers to remove empty container */
+        [data-testid="stForm"], [data-testid="stBlock"] {
             margin: 0 !important;
             padding: 0 !important;
             border: none !important;
             box-shadow: none !important;
             background: transparent !important;
-            height: 0 !important;
+            min-height: 0 !important;
+            overflow: hidden !important;
         }
 
         /* Login container */
@@ -75,8 +74,7 @@ st.markdown("""
         }
 
         /* Form labels */
-        .komi-login-container label,
-        .komi-login-container [class*="st-emotion-cache"] label {
+        .komi-login-container label {
             font-size: 1rem;
             color: #2d3748;
             font-weight: 500;
@@ -87,8 +85,7 @@ st.markdown("""
         .komi-login-container input,
         .komi-login-container [data-testid="stTextInput"] input,
         .komi-login-container input[type="text"],
-        .komi-login-container input[type="password"],
-        .komi-login-container [class*="st-emotion-cache"] input {
+        .komi-login-container input[type="password"] {
             border: 1px solid #e2e8f0;
             border-radius: 10px;
             padding: 12px 14px;
@@ -103,8 +100,7 @@ st.markdown("""
         .komi-login-container input:focus,
         .komi-login-container [data-testid="stTextInput"] input:focus,
         .komi-login-container input[type="text"]:focus,
-        .komi-login-container input[type="password"]:focus,
-        .komi-login-container [class*="st-emotion-cache"] input:focus {
+        .komi-login-container input[type="password"]:focus {
             border-color: #007bff;
             box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
             outline: none;
@@ -113,8 +109,7 @@ st.markdown("""
         /* Login button */
         .komi-login-container button,
         .komi-login-container [data-testid="stButton"] button,
-        .komi-login-container button[kind="primary"],
-        .komi-login-container [class*="st-emotion-cache"] button {
+        .komi-login-container button[kind="primary"] {
             background: linear-gradient(to right, #007bff, #00d4ff);
             color: white;
             border: none;
@@ -130,8 +125,7 @@ st.markdown("""
 
         .komi-login-container button:hover,
         .komi-login-container [data-testid="stButton"] button:hover,
-        .komi-login-container button[kind="primary"]:hover,
-        .komi-login-container [class*="st-emotion-cache"] button:hover {
+        .komi-login-container button[kind="primary"]:hover {
             box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
             transform: translateY(-2px);
         }
