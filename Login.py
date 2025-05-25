@@ -140,7 +140,7 @@ elif authentication_status is False:
 st.markdown('</div>', unsafe_allow_html=True)
 
 # Footer
-st.markdown("<br><hr>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("""
     <div class="footer">
         © 2025 KOMI Group. All rights reserved.<br>
