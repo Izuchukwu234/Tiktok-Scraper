@@ -6,33 +6,70 @@ from style import inject_custom_css
 # Page config
 st.set_page_config(page_title="KOMI Radar | Home", page_icon="🔍", layout="centered")
 
-# Inject global style (sidebar etc.)
+# Inject global styles
 inject_custom_css()
 
-# Page-specific CSS
+# Page-specific CSS with text designs
 st.markdown("""
     <style>
         .komi-home-container {
-            background-color: #ffffff;
-            padding: 2rem 2.5rem;
-            border-radius: 16px;
+            background: linear-gradient(to bottom right, #fefefe, #f2f8ff);
+            padding: 2.5rem 3rem;
+            border-radius: 20px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
             margin-top: 30px;
             font-family: 'Segoe UI', sans-serif;
+            transition: box-shadow 0.3s ease;
         }
+
+        .komi-home-container:hover {
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+        }
+
         .komi-home-container h3 {
             color: #007bff;
+            font-size: 1.8rem;
             margin-bottom: 1rem;
+            text-shadow: 1px 1px 0 #e2eaff;
         }
+
+        .komi-home-container p {
+            font-size: 1.05rem;
+            color: #333;
+            margin-bottom: 1.2rem;
+        }
+
         .komi-home-container ul {
             padding-left: 1.2rem;
+            margin-bottom: 1.5rem;
         }
+
+        .komi-home-container ul li {
+            margin-bottom: 0.7rem;
+            font-size: 1.02rem;
+            color: #222;
+            background-color: #e9f3ff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .komi-home-container ul li:hover {
+            background-color: #d2e9ff;
+            cursor: default;
+        }
+
         .komi-home-note {
             margin-top: 2rem;
             font-weight: 500;
-            color: #333;
-            border-top: 1px solid #eee;
-            padding-top: 1rem;
+            font-size: 0.95rem;
+            color: #444;
+            border-top: 1px solid #ddd;
+            padding-top: 1.2rem;
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding-left: 1rem;
+            border-radius: 8px;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -43,7 +80,7 @@ if not st.session_state.get("authentication_status"):
     st.warning("🔒 Please log in first.")
     st.stop()
 
-# Sidebar (unchanged)
+# Sidebar untouched
 authenticator.logout("Logout", location="sidebar")
 st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 st.sidebar.image("logo_2.png")
@@ -53,7 +90,7 @@ st.image("komi_logo.png", width=100)
 st.title("KOMI Radar")
 st.caption("Powered by KOMI Insights!")
 
-# Content container using raw HTML
+# Beautiful styled content container
 st.markdown("""
 <div class="komi-home-container">
     <h3>Welcome to the KOMI Radar 👋</h3>
@@ -74,7 +111,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Footer (unchanged)
+# Footer
 current_year = datetime.now().year
 st.markdown(f"""
     <div class="footer">
