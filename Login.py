@@ -2,7 +2,7 @@ import streamlit as st
 from auth import get_authenticator
 
 # Page config
-st.set_page_config(page_title="Login | KOMI Radar", page_icon="", layout="centered")
+st.set_page_config(page_title="Login | KOMI Radar", page_icon="🔐", layout="centered")
 
 # Hide sidebar, header, menu
 st.markdown("""
@@ -33,7 +33,7 @@ authenticator = get_authenticator()
 col1, col2, col3 = st.columns([1, 4, 1])
 with col2:
     st.image("komi_logo.png", width=120)
-    st.markdown('## Welcome to <span class="komi-blue">KOMI</span> Radar ', unsafe_allow_html=True)
+    st.markdown('## Welcome to <span class="komi-blue">KOMI</span> Radar 😊', unsafe_allow_html=True)
     st.caption("Powered by KOMI Insights!")
 
 # Add horizontal line and spacing
@@ -47,6 +47,7 @@ fields = {
     "Password": "Password",
     "Login button": "Login"
 }
+
 login_result = authenticator.login(fields=fields, location='main')
 
 if login_result:
@@ -63,12 +64,11 @@ elif authentication_status is False:
 
 # Add line break
 st.markdown("<br>", unsafe_allow_html=True)
-
 # Add horizontal line and spacing
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 
-# Footer
+
 st.markdown(
     """
     <div class="footer">
