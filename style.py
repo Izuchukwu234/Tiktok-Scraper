@@ -1,6 +1,6 @@
-import streamlit as stdef 
+import streamlit as st
 
-inject_custom_css():
+def inject_custom_css():
     
 
 st.markdown("""
