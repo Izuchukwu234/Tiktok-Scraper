@@ -27,7 +27,9 @@ st.sidebar.image("logo_2.png")
 API_TOKEN = "lSNX5D8FW02vlTX4"
 client = EDClient(API_TOKEN)
 
-# # --- CUSTOM CSS ---# st.markdown("""
+# # --- CUSTOM CSS 
+
+---# st.markdown("""
 #     <style>
 #         body {
 #             background-color: #f5f7fa;
@@ -90,7 +92,9 @@ st.markdown('<div class="header-divider"></div>', unsafe_allow_html=True)
 st.markdown('<div style="height: 50px;"></div>', unsafe_allow_html=True)
 
 # --- DOWNLOAD FORMAT SELECTION ---
-download_format = st.selectbox("Select download format", ["CSV", "XLSX", "TXT", "HTML", "JSON"])# --- MAIN CONTENT ---
+download_format = st.selectbox("Select download format", ["CSV", "XLSX", "TXT", "HTML", "JSON"])
+
+# --- MAIN CONTENT ---
 with st.container():
     method = st.selectbox("Select scraping method", ["Hashtag", "Keyword", "Username"])with st.form("scraper_form"):
     if method == "Hashtag":
