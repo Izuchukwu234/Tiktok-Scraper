@@ -1,11 +1,10 @@
 import streamlit as st
 from auth import get_authenticator
-from datetime import datetime
 
 # Page config
 st.set_page_config(page_title="Login | KOMI Radar", page_icon="🔐", layout="centered")
 
-# Page-specific CSS with minimal, targeted styles
+# Page-specific CSS
 st.markdown("""
     <style>
         /* Hide sidebar, header, menu */
@@ -13,19 +12,8 @@ st.markdown("""
             display: none;
         }
 
-        /* Reset potential wrappers to remove empty container at top */
-        .komi-login-container > div:not(.stImage, .stMarkdown, .stCaption, .stAlert, .komi-login-form) {
-            margin: 0 !important;
-            padding: 0 !important;
-            border: none !important;
-            box-shadow: none !important;
-            background: transparent !important;
-            min-height: 0 !important;
-            height: 0 !important;
-            overflow: hidden !important;
-        }
-
-        [data-testid="stForm"], [data-testid="stBlock"], [data-testid="stVerticalBlock"] {
+        /* Reset wrappers to remove empty container at top */
+        [data-testid="stForm"], [data-testid="stVerticalBlock"], [data-testid="stBlock"] {
             margin: 0 !important;
             padding: 0 !important;
             border: none !important;
@@ -33,59 +21,21 @@ st.markdown("""
             background: transparent !important;
             min-height: 0 !important;
             overflow: hidden !important;
-        }
-
-        /* Login container */
-        .komi-login-container {
-            background: linear-gradient(135deg, #ffffff, #e8f0fe);
-            padding: 3rem 3.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.1);
-            margin: 20px auto;
-            max-width: 500px;
-            border: 1px solid rgba(0, 123, 255, 0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        .komi-login-container:hover {
-            box-shadow: 0 14px 32px rgba(0, 123, 255, 0.2);
-            transform: scale(1.02);
-        }
-
-        /* Title styling */
-        .komi-login-container h2 {
-            font-size: 2rem;
-            background: linear-gradient(to right, #007bff, #00d4ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-align: center;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Caption styling */
-        .komi-login-container .stCaption {
-            font-size: 0.95rem;
-            color: #4a5568;
-            text-align: center;
-            margin-bottom: 2rem;
         }
 
         /* Form container */
-        .komi-login-container .komi-login-form {
-            display: block;
+        .komi-login-form {
             background: #ffffff;
             padding: 1.5rem;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 123, 255, 0.1);
             margin-top: 0 !important;
             border: 2px solid #007bff; /* Temporary border to confirm form visibility */
+            font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         /* Form labels */
-        .komi-login-container .komi-login-form label {
+        .komi-login-form label {
             font-size: 1rem;
             color: #2d3748;
             font-weight: 500;
@@ -94,10 +44,10 @@ st.markdown("""
         }
 
         /* Form inputs */
-        .komi-login-container .komi-login-form input,
-        .komi-login-container .komi-login-form [data-testid="stTextInput"] input,
-        .komi-login-container .komi-login-form input[type="text"],
-        .komi-login-container .komi-login-form input[type="password"] {
+        .komi-login-form input,
+        .komi-login-form [data-testid="stTextInput"] input,
+        .komi-login-form input[type="text"],
+        .komi-login-form input[type="password"] {
             border: 1px solid #e2e8f0;
             border-radius: 10px;
             padding: 12px 14px;
@@ -110,19 +60,19 @@ st.markdown("""
             margin-bottom: 0.8rem;
         }
 
-        .komi-login-container .komi-login-form input:focus,
-        .komi-login-container .komi-login-form [data-testid="stTextInput"] input:focus,
-        .komi-login-container .komi-login-form input[type="text"]:focus,
-        .komi-login-container .komi-login-form input[type="password"]:focus {
+        .komi-login-form input:focus,
+        .komi-login-form [data-testid="stTextInput"] input:focus,
+        .komi-login-form input[type="text"]:focus,
+        .komi-login-form input[type="password"]:focus {
             border-color: #007bff;
             box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
             outline: none;
         }
 
         /* Login button */
-        .komi-login-container .komi-login-form button,
-        .komi-login-container .komi-login-form [data-testid="stButton"] button,
-        .komi-login-container .komi-login-form button[kind="primary"] {
+        .komi-login-form button,
+        .komi-login-form [data-testid="stButton"] button,
+        .komi-login-form button[kind="primary"] {
             background: linear-gradient(to right, #007bff, #00d4ff);
             color: white;
             border: none;
@@ -137,15 +87,15 @@ st.markdown("""
             margin-top: 0.8rem;
         }
 
-        .komi-login-container .komi-login-form button:hover,
-        .komi-login-container .komi-login-form [data-testid="stButton"] button:hover,
-        .komi-login-container .komi-login-form button[kind="primary"]:hover {
+        .komi-login-form button:hover,
+        .komi-login-form [data-testid="stButton"] button:hover,
+        .komi-login-form button[kind="primary"]:hover {
             box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
             transform: translateY(-2px);
         }
 
         /* Error message */
-        .komi-login-container [data-testid="stAlert"] {
+        [data-testid="stAlert"] {
             border-radius: 10px;
             padding: 1rem;
             background-color: #fff1f0;
@@ -154,34 +104,17 @@ st.markdown("""
             margin-top: 1rem;
         }
 
-        /* Divider */
-        .komi-divider {
-            border-top: 2px solid #e2e8f0;
-            margin: 2rem 0;
-        }
-
         /* Footer */
         .footer {
-            font-size: 0.9rem;
-            color: #4a5568;
             text-align: center;
-            margin-top: 2rem;
-            padding: 1.2rem;
-            background-color: #f8fafc;
-            border-radius: 8px;
-            transition: background 0.3s ease;
-        }
-
-        .footer:hover {
-            background-color: #edf5ff;
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 20px;
         }
 
         /* Blue text for KOMI */
         .komi-blue {
-            background: linear-gradient(to right, #007bff, #00d4ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
+            color: #0000FF;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -193,18 +126,16 @@ if st.session_state.get("authentication_status"):
 # Load authenticator
 authenticator = get_authenticator()
 
-# Login container
-st.markdown('<div class="komi-login-container">', unsafe_allow_html=True)
-
 # Centered logo, title, and caption using st.columns
 col1, col2, col3 = st.columns([1, 4, 1])
 with col2:
     st.image("komi_logo.png", width=120)
-    st.markdown('<h2>Welcome to <span class="komi-blue">KOMI</span> Radar 😊</h2>', unsafe_allow_html=True)
+    st.markdown('## Welcome to <span class="komi-blue">KOMI</span> Radar 😊', unsafe_allow_html=True)
     st.caption("Powered by KOMI Insights!")
 
 # Add horizontal line and spacing
-st.markdown('<div class="komi-divider"></div>', unsafe_allow_html=True)
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
 
 # Login form
 st.markdown('<div class="komi-login-form">', unsafe_allow_html=True)
@@ -230,17 +161,18 @@ elif authentication_status is False:
     st.error("Incorrect username or password")
 st.markdown('</div>', unsafe_allow_html=True)
 
-st.markdown('</div>', unsafe_allow_html=True)
+# Add line break
+st.markdown("<br>", unsafe_allow_html=True)
 
 # Add horizontal line and spacing
-st.markdown('<div class="komi-divider"></div>', unsafe_allow_html=True)
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
 
 # Footer
-current_year = datetime.now().year
 st.markdown(
-    f"""
+    """
     <div class="footer">
-        © {current_year} KOMI Group. All rights reserved.<br>
+        © 2025 KOMI Group. All rights reserved.<br>
         KOMI Radar is for internal use only.
     </div>
     """,
