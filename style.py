@@ -87,8 +87,63 @@ def inject_custom_css():
                 transition: background 0.3s ease, color 0.3s ease;
             }
 
-            section[data-testid="stSidebar"] a span::before {
-                content: '🔗';
+            /* Social media and page-specific icons */
+            section[data-testid="stSidebar"] a:nth-child(1) span::before {
+                content: '🔐'; /* Login icon */
+                margin-right: 8px;
+                font-size: 1.1rem;
+            }
+
+            section[data-testid="stSidebar"] a:nth-child(2) span::before {
+                content: '🏠'; /* Home icon */
+                margin-right: 8px;
+                font-size: 1.1rem;
+            }
+
+            section[data-testid="stSidebar"] a:nth-child(3) span::before {
+                content: '📊'; /* How We Collect Data icon */
+                margin-right: 8px;
+                font-size: 1.1rem;
+            }
+
+            section[data-testid="stSidebar"] a:nth-child(4) span::before {
+                content: '📸'; /* Instagram icon */
+                margin-right: 8px;
+                font-size: 1.1rem;
+            }
+
+            section[data-testid="stSidebar"] a:nth-child(5) span::before {
+                content: '👽'; /* Reddit icon */
+                margin-right: 8px;
+                font-size: 1.1rem;
+            }
+
+            section[data-testid="stSidebar"] a:nth-child(6) span::before {
+                content: '👻'; /* Snapchat icon */
+                margin-right: 8px;
+                font-size: 1.1rem;
+            }
+
+            section[data-testid="stSidebar"] a:nth-child(7) span::before {
+                content: '🧵'; /* Threads icon */
+                margin-right: 8px;
+                font-size: 1.1rem;
+            }
+
+            section[data-testid="stSidebar"] a:nth-child(8) span::before {
+                content: '🎵'; /* TikTok icon */
+                margin-right: 8px;
+                font-size: 1.1rem;
+            }
+
+            section[data-testid="stSidebar"] a:nth-child(9) span::before {
+                content: '🐦'; /* Twitter icon */
+                margin-right: 8px;
+                font-size: 1.1rem;
+            }
+
+            section[data-testid="stSidebar"] a:nth-child(10) span::before {
+                content: '📹'; /* YouTube icon */
                 margin-right: 8px;
                 font-size: 1.1rem;
             }
