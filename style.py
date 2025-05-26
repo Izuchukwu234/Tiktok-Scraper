@@ -8,7 +8,9 @@ from auth import get_authenticator
 from style import inject_custom_css
 
 # --- PAGE CONFIG ---
-st.set_page_config(page_title="KOMI Scraper | KOMI Group", page_icon="komi_logo", layout="centered")inject_custom_css()# --- AUTHENTICATION ---
+st.set_page_config(page_title="KOMI Scraper | KOMI Group", page_icon="komi_logo", layout="centered")inject_custom_css()
+
+# --- AUTHENTICATION ---
 authenticator = get_authenticator()
 
 # Check login status
