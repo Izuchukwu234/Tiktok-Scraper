@@ -5,7 +5,7 @@ from datetime import datetime
 # Page config
 st.set_page_config(page_title="Login | KOMI Radar", page_icon="🔐", layout="centered")
 
-# Page-specific CSS with minimal, targeted styles
+# Page-specific CSS with targeted styles
 st.markdown("""
     <style>
         /* Hide sidebar, header, menu */
@@ -13,7 +13,8 @@ st.markdown("""
             display: none;
         }
 
-        /* Reset potential wrappers to remove empty container */
+        /* Reset wrappers to remove empty container at top */
+        .komi-login-container > div:not(.stImage, .stMarkdown, .stCaption, .stAlert, .komi-login-form),
         [data-testid="stForm"], [data-testid="stBlock"] {
             margin: 0 !important;
             padding: 0 !important;
@@ -21,6 +22,7 @@ st.markdown("""
             box-shadow: none !important;
             background: transparent !important;
             min-height: 0 !important;
+            height: 0 !important;
             overflow: hidden !important;
         }
 
@@ -71,10 +73,11 @@ st.markdown("""
             padding: 1.5rem;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 123, 255, 0.1);
+            margin-top: 0 !important;
         }
 
         /* Form labels */
-        .komi-login-container label {
+        .komi-login-container .komi-login-form label {
             font-size: 1rem;
             color: #2d3748;
             font-weight: 500;
@@ -82,10 +85,10 @@ st.markdown("""
         }
 
         /* Form inputs */
-        .komi-login-container input,
-        .komi-login-container [data-testid="stTextInput"] input,
-        .komi-login-container input[type="text"],
-        .komi-login-container input[type="password"] {
+        .komi-login-container .komi-login-form input,
+        .komi-login-container .komi-login-form [data-testid="stTextInput"] input,
+        .komi-login-container .komi-login-form input[type="text"],
+        .komi-login-container .komi-login-form input[type="password"] {
             border: 1px solid #e2e8f0;
             border-radius: 10px;
             padding: 12px 14px;
@@ -97,19 +100,19 @@ st.markdown("""
             box-sizing: border-box;
         }
 
-        .komi-login-container input:focus,
-        .komi-login-container [data-testid="stTextInput"] input:focus,
-        .komi-login-container input[type="text"]:focus,
-        .komi-login-container input[type="password"]:focus {
+        .komi-login-container .komi-login-form input:focus,
+        .komi-login-container .komi-login-form [data-testid="stTextInput"] input:focus,
+        .komi-login-container .komi-login-form input[type="text"]:focus,
+        .komi-login-container .komi-login-form input[type="password"]:focus {
             border-color: #007bff;
             box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
             outline: none;
         }
 
         /* Login button */
-        .komi-login-container button,
-        .komi-login-container [data-testid="stButton"] button,
-        .komi-login-container button[kind="primary"] {
+        .komi-login-container .komi-login-form button,
+        .komi-login-container .komi-login-form [data-testid="stButton"] button,
+        .komi-login-container .komi-login-form button[kind="primary"] {
             background: linear-gradient(to right, #007bff, #00d4ff);
             color: white;
             border: none;
@@ -123,9 +126,9 @@ st.markdown("""
             cursor: pointer;
         }
 
-        .komi-login-container button:hover,
-        .komi-login-container [data-testid="stButton"] button:hover,
-        .komi-login-container button[kind="primary"]:hover {
+        .komi-login-container .komi-login-form button:hover,
+        .komi-login-container .komi-login-form [data-testid="stButton"] button:hover,
+        .komi-login-container .komi-login-form button[kind="primary"]:hover {
             box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
             transform: translateY(-2px);
         }
