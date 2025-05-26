@@ -122,7 +122,7 @@ st.sidebar.image("logo_2.png")
 
 # Logo and title
 st.image("komi_logo.png", width=100)
-st.title("How We Collect Data")
+# st.title("How We Collect Data")
 
 # Styled content container
 st.markdown("""
