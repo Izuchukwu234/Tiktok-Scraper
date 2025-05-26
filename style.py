@@ -73,8 +73,8 @@ def inject_custom_css():
             transform: scale(1.02);
         }
 
-        /* Sidebar Link Styling for <a> tags */
-        section[data-testid="stSidebar"] a {
+        /* Sidebar Menu Item Styling (Multipage Navigation) */
+        [data-testid="stSidebarNavItems"] div {
             color: #007bff !important;
             font-weight: 600 !important;
             text-transform: uppercase !important;
@@ -84,78 +84,77 @@ def inject_custom_css():
             align-items: center;
             padding: 8px 12px;
             border-radius: 8px;
-            transition: background 0.3s ease, color 0.3s ease;
+            transition: background 0.3s ease, color 0.5s ease;
         }
 
-        /* Icons for <a> tags based on href */
-        section[data-testid="stSidebar"] a[href*='login']::before {
+        /* Icons for Menu Items */
+        [data-testid="stSidebarNavItems"] div:nth-of-type(1)::before {
             content: '🔐'; /* Login icon */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] a[href*='home']::before {
+        [data-testid="stSidebarNavItems"] div:nth-of-type(2)::before {
             content: '🏠'; /* Home icon */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] a[href*='how-we-collect-data']::before {
+        [data-testid="stSidebarNavItems"] div:nth-of-type(3)::before {
             content: '📊'; /* How We Collect Data icon */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] a[href*='meta']::before {
-            content: '📸'; /* Meta icon */
+        [data-testid="stSidebarNavItems"] div:nth-of-type(4)::before {
+            content: '📸'; /* Instagram icon */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] a[href*='reddit']::before {
+        [data-testid="stSidebarNavItems"] div:nth-of-type(5)::before {
             content: '👽'; /* Reddit icon */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] a[href*='snapchat']::before {
+        [data-testid="stSidebarNavItems"] div:nth-of-type(6)::before {
             content: '👻'; /* Snapchat icon */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] a[href*='threads']::before {
+        [data-testid="stSidebarNavItems"] div:nth-of-type(7)::before {
             content: '🧵'; /* Threads icon */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] a[href*='tiktok']::before {
+        [data-testid="stSidebarNavItems"] div:nth-of-type(8)::before {
             content: '🎵'; /* TikTok icon */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] a[href*='twitter']::before {
+        [data-testid="stSidebarNavItems"] div:nth-of-type(9)::before {
             content: '🐦'; /* Twitter icon */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] a[href*='youtube']::before {
+        [data-testid="stSidebarNavItems"] div:nth-of-type(10)::before {
             content: '📹'; /* YouTube icon */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] a:hover {
+        [data-testid="stSidebarNavItems"] div:hover {
             color: #0056b3 !important;
             background-color: #edf5ff !important;
-            text-decoration: none !important;
         }
 
-        /* Fallback: Styling for radio buttons (e.g., st.sidebar.radio) */
-        section[data-testid="stSidebar"] .stRadio > div > label {
+        /* Fallback for Other Structures (e.g., <label> */
+        [data-testid="stSidebar"] .stRadio > div > label {
             color: #007bff !important;
             font-weight: 600 !important;
             text-transform: uppercase !important;
@@ -168,68 +167,68 @@ def inject_custom_css():
             transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* Icons for radio labels based on content */
-        section[data-testid="stSidebar"] .stRadio > div > label:nth-of-type(1)::before {
+        /* Fallback Icons */
+        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(1)::before {
             content: '🔐'; /* Login */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] .stRadio > div > label:nth-of-type(2)::before {
+        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(2)::before {
             content: '🏠'; /* Home */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] .stRadio > div > label:nth-of-type(3)::before {
+        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(3)::before {
             content: '📊'; /* How We Collect Data */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] .stRadio > div > label:nth-of-type(4)::before {
-            content: '📸'; /* Meta */
+        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(4)::before {
+            content: '📸'; /* Instagram */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] .stRadio > div > label:nth-of-type(5)::before {
+        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(5)::before {
             content: '👽'; /* Reddit */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] .stRadio > div > label:nth-of-type(6)::before {
+        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(6)::before {
             content: '👻'; /* Snapchat */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] .stRadio > div > label:nth-of-type(7)::before {
+        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(7)::before {
             content: '🧵'; /* Threads */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] .stRadio > div > label:nth-of-type(8)::before {
+        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(8)::before {
             content: '🎵'; /* TikTok */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] .stRadio > div > label:nth-of-type(9)::before {
+        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(9)::before {
             content: '🐦'; /* Twitter */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] .stRadio > div > label:nth-of-type(10)::before {
+        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(10)::before {
             content: '📹'; /* YouTube */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        section[data-testid="stSidebar"] .stRadio > div > label:hover {
+        [data-testid="stSidebar"] .stRadio > div > label:hover {
             color: #0056b3 !important;
             background-color: #edf5ff !important;
         }
