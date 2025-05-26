@@ -1,22 +1,118 @@
 import streamlit as st
-import pandas as pd
-from datetime import datetime
-from ensembledata.api import EDClient
-from io import BytesIO
-import numpy as np
 from auth import get_authenticator
 from style import inject_custom_css
 
-# --- PAGE CONFIG ---
-st.set_page_config(page_title="KOMI Scraper | KOMI Group", page_icon="komi_logo", layout="centered")
+st.set_page_config(page_title="How We Collect Data | KOMI Group", page_icon="📊")
+
 inject_custom_css()
+
+# Page-specific CSS with enhanced designs
+st.markdown("""
+    <style>
+        .komi-data-container {
+            background: linear-gradient(135deg, #ffffff, #e8f0fe);
+            padding: 3rem 3.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            border: 1px solid rgba(0, 123, 255, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .komi-data-container:hover {
+            box-shadow: 0 14px 32px rgba(0, 123, 255, 0.2);
+            transform: scale(1.02);
+        }
+
+        .komi-data-container h3 {
+            font-size: 2rem;
+            background: linear-gradient(to right, #007bff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .komi-data-container p {
+            font-size: 1.1rem;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.2px;
+            line-height: 1.6;
+        }
+
+        .komi-data-container ul {
+            padding-left: 0;
+            margin-bottom: 1.5rem;
+            list-style-type: none; /* No bullet points */
+        }
+
+        .komi-data-container ul li {
+            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
+            color: #1a202c;
+            background-color: #edf5ff;
+            padding: 10px 15px;
+            border-radius: 10px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            font-weight: 500; /* Slightly less bold than homepage for variety */
+            display: flex;
+            align-items: center;
+        }
+
+        .komi-data-container ul li::before {
+            content: '📈';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .komi-data-container ul li:hover {
+            background-color: #c3e0ff;
+            transform: translateX(5px);
+        }
+
+        .komi-data-note {
+            margin-top: 2rem;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3748;
+            background-color: #fffaf0;
+            border-left: 5px solid #f6ad55;
+            border-radius: 10px;
+            padding: 1.2rem;
+            box-shadow: 0 2px 8px rgba(246, 173, 85, 0.2);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .komi-data-note:hover {
+            box-shadow: 0 4px 12px rgba(246, 173, 85, 0.3);
+        }
+
+        .komi-divider {
+            border-top: 2px solid #e2e8f0;
+            margin: 2rem 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 # --- AUTHENTICATION ---
 authenticator = get_authenticator()
 
 # Check login status
 if not st.session_state.get("authentication_status"):
-    st.warning(" Please log in first.")
+    st.warning("🔒 Please log in first.")
     st.stop()
 
 # --- Show logout in sidebar ---
@@ -24,374 +120,32 @@ authenticator.logout("Logout", location="sidebar")
 st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 st.sidebar.image("logo_2.png")
 
-# --- SETTINGS ---
-API_TOKEN = "lSNX5D8FW02vlTX4"
-client = EDClient(API_TOKEN)
-
-# --- CUSTOM CSS ---
-st.markdown("""
-    <style>
-        /* Scoped container for TikTok page */
-        .tiktok-container {
-            background-color: #ffffff !important;
-            border-radius: 16px !important;
-            padding: 2.5rem !important;
-            box-shadow: 0 8px 24px rgba(0, 123, 255, 0.15) !important;
-            margin: 2rem auto !important;
-            max-width: 900px !important;
-            font-family: 'Inter', 'Segoe UI', sans-serif !important;
-        }
-
-        /* Header styling */
-        .tiktok-container .tiktok-header {
-            display: flex !important;
-            align-items: center !important;
-            gap: 12px !important;
-            margin-bottom: 1rem !important;
-        }
-        .tiktok-container .tiktok-header h1 {
-            font-size: 2rem !important;
-            background: linear-gradient(to right, #007bff, #00d4ff) !important;
-            -webkit-background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
-            font-weight: 700 !important;
-            margin: 0 !important;
-        }
-        .tiktok-container .tiktok-divider {
-            border-top: 2px solid #e2e8f0 !important;
-            margin: 1.5rem 0 2rem !important;
-        }
-
-        /* Caption styling */
-        .tiktok-container [data-testid="stCaption"] {
-            font-size: 0.95rem !important;
-            color: #4a5568 !important;
-            text-align: left !important;
-            margin-bottom: 1rem !important;
-        }
-
-        /* Form styling */
-        .tiktok-container [data-testid="stForm"] {
-            background: #f8fafc !important;
-            padding: 1.5rem !important;
-            border-radius: 12px !important;
-            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.05) !important;
-        }
-        .tiktok-container [data-testid="stTextInput"] input,
-        .tiktok-container [data-testid="stTextArea"] textarea {
-            border: 1px solid #e2e8f0 !important;
-            border-radius: 8px !important;
-            padding: 10px 12px !important;
-            font-size: 1rem !important;
-            background-color: #ffffff !important;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
-        }
-        .tiktok-container [data-testid="stTextInput"] input:focus,
-        .tiktok-container [data-testid="stTextArea"] textarea:focus {
-            border-color: #007bff !important;
-            box-shadow: 0 0 6px rgba(0, 123, 255, 0.2) !important;
-            outline: none !important;
-        }
-        .tiktok-container [data-testid="stSelectbox"] select {
-            border: 1px solid #e2e8f0 !important;
-            border-radius: 8px !important;
-            padding: 10px 12px !important;
-            font-size: 1rem !important;
-            background-color: #ffffff !important;
-            transition: border-color 0.3s ease !important;
-        }
-        .tiktok-container [data-testid="stSelectbox"] select:focus {
-            border-color: #007bff !important;
-        }
-
-        /* Buttons */
-        .tiktok-container [data-testid="stButton"] button {
-            background: linear-gradient(to right, #007bff, #00d4ff) !important;
-            color: white !important;
-            border: none !important;
-            border-radius: 8px !important;
-            padding: 0.75rem 1.5rem !important;
-            font-size: 1rem !important;
-            font-weight: 600 !important;
-            transition: transform 0.2s ease, box-shadow 0.3s ease !important;
-        }
-        .tiktok-container [data-testid="stButton"] button:hover {
-            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3) !important;
-            transform: translateY(-2px) !important;
-        }
-        .tiktok-container [data-testid="stDownloadButton"] button {
-            background: linear-gradient(to right, #28a745, #38d57a) !important;
-            color: white !important;
-            border: none !important;
-            border-radius: 8px !important;
-            padding: 0.75rem 1.5rem !important;
-            font-size: 1rem !important;
-            font-weight: 600 !important;
-            margin-top: 1rem !important;
-            transition: transform 0.2s ease, box-shadow 0.3s ease !important;
-        }
-        .tiktok-container [data-testid="stDownloadButton"] button:hover {
-            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3) !important;
-            transform: translateY(-2px) !important;
-        }
-
-        /* Alerts */
-        .tiktok-container [data-testid="stAlert"] {
-            border-radius: 8px !important;
-            padding: 1rem !important;
-            font-size: 0.95rem !important;
-        }
-        .tiktok-container [data-testid="stAlert"][role="alert"] {
-            background-color: #fff1f0 !important;
-            color: #c53030 !important;
-        }
-        .tiktok-container [data-testid="stAlert"][role="success"] {
-            background-color: #e6ffed !important;
-            color: #2e7d32 !important;
-        }
-        .tiktok-container [data-testid="stAlert"][role="warning"] {
-            background-color: #fff8e1 !important;
-            color: #d97706 !important;
-        }
-
-        /* Dataframe styling */
-        .tiktok-container [data-testid="stDataFrame"] {
-            border: 1px solid #e2e8f0 !important;
-            border-radius: 8px !important;
-            overflow: hidden !important;
-        }
-        .tiktok-container [data-testid="stDataFrame"] table {
-            width: 100% !important;
-            border-collapse: collapse !important;
-        }
-        .tiktok-container [data-testid="stDataFrame"] th {
-            background-color: #f1f5f9 !important;
-            font-weight: 600 !important;
-            padding: 0.75rem !important;
-        }
-        .tiktok-container [data-testid="stDataFrame"] td {
-            padding: 0.75rem !important;
-            border-top: 1px solid #e2e8f0 !important;
-        }
-        .tiktok-container [data-testid="stDataFrame"] tr:nth-child(even) {
-            background-color: #f8fafc !important;
-        }
-
-        /* Footer */
-        .tiktok-container .tiktok-footer {
-            font-size: 0.85rem !important;
-            color: #4a5568 !important;
-            text-align: center !important;
-            margin-top: 3rem !important;
-            padding-top: 1.5rem !important;
-            border-top: 1px solid #e2e8f0 !important;
-            font-family: 'Inter', 'Segoe UI', sans-serif !important;
-        }
-
-        /* Hide default footer */
-        footer {
-            visibility: hidden !important;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-# --- INIT SESSION STATE ---
-if 'scraped_df' not in st.session_state:
-    st.session_state.scraped_df = None
-
-# --- MAIN CONTENT ---
-st.markdown('<div class="tiktok-container">', unsafe_allow_html=True)
-
-# Header
+# Logo and title
 st.image("komi_logo.png", width=100)
+st.title("How We Collect Data")
+
+# Styled content container
 st.markdown("""
-    <div class="tiktok-header">
-        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" width="36">
-        <h1>TikTok Scraper</h1>
+<div class="komi-data-container">
+    <h3>📡 Our Data Collection Process</h3>
+    <p>We use the <strong>EnsembleData API</strong>, a third-party enterprise-grade provider, to <strong>fetch publicly available social media data</strong>. Our system does <strong>not directly scrape websites</strong>, but instead relies on secure and compliant API access to retrieve:</p>
+    <ul>
+        <li>Publicly available social media post metrics</li>
+        <li>Metadata for content like captions, hashtags, view counts</li>
+        <li>User-facing share links</li>
+        <li>Historical data based on hashtags, usernames, or keywords</li>
+    </ul>
+    <div class="komi-data-note">
+        ✅ We ensure our tools stay compliant with platform guidelines and are strictly used for <strong>internal insights and reporting</strong>.<br>
+        🛡️ <strong>Disclaimer:</strong> No personal data, login credentials, or private content is ever accessed.
     </div>
+</div>
+<div class="komi-divider"></div>
 """, unsafe_allow_html=True)
-
-st.caption("Powered by KOMI Insights · Built for the Ark Media Team.")
-st.markdown('<div class="tiktok-divider"></div>', unsafe_allow_html=True)
-st.markdown('<div style="height: 50px;"></div>', unsafe_allow_html=True)
-
-# Download format selection
-download_format = st.selectbox("Select download format", ["CSV", "XLSX", "TXT", "HTML", "JSON"])
-
-# Scraping method
-with st.container():
-    method = st.selectbox("Select scraping method", ["Hashtag", "Keyword", "Username"])
-
-# Form
-with st.form("scraper_form"):
-    if method == "Hashtag":
-        hashtag = st.text_input("Enter hashtag (without #)")
-        days = st.slider("Days to look back", 1, 180, 30)
-    elif method == "Keyword":
-        keyword_input = st.text_area("Enter keyword(s), separated by commas")
-        period = st.selectbox("Select period (days to look back)", ['0', '1', '7', '30', '90', '180'])
-        keywords = [kw.strip() for kw in keyword_input.split(",") if kw.strip()]
-    else:
-        username = st.text_input("Enter a valid TikTok username")
-        depth = st.slider("Scrape depth (higher = more posts)", 1, 100, 20)
-
-    view_filter = st.selectbox("Filter by views", [
-        "All views", "0–50K", "50K–100K", "100K–500K", "500K–1M", "1M+"
-    ])
-    like_filter = st.selectbox("Filter by likes", [
-        "All likes", "0–50K", "50K–100K", "100K–500K", "500K–1M", "1M+"
-    ])
-
-    # Data reduction notice
-    st.markdown(
-        "<small>⚠️ Using views and likes filters may significantly reduce the number of posts returned. "
-        "Try adjusting or disabling filters for broader results.</small>",
-        unsafe_allow_html=True
-    )
-    
-    submit = st.form_submit_button("📅 Scrape Data")
-
-# Scraping logic
-if submit:
-    with st.spinner("⏳ Scraping data... Please wait."):
-        try:
-            if method == "Hashtag":
-                posts = client.tiktok.full_hashtag_search(hashtag=hashtag, days=days).data.get("posts", [])
-                df = pd.json_normalize(posts)[[
-                    'itemInfos.id', 'itemInfos.createTime', 'itemInfos.text', 'itemInfos.playCount',
-                    'itemInfos.diggCount', 'itemInfos.commentCount', 'itemInfos.shareCount',
-                    'itemInfos.video.videoMeta.duration', 'authorInfos.uniqueId']]
-
-                df['share_link'] = df.apply(
-                    lambda row: f"https://www.tiktok.com/@{row['authorInfos.uniqueId']}/video/{row['itemInfos.id']}", axis=1)
-
-                df = df[[
-                    'itemInfos.id', 'itemInfos.createTime', 'itemInfos.text', 'itemInfos.playCount',
-                    'itemInfos.diggCount', 'itemInfos.commentCount', 'itemInfos.shareCount',
-                    'itemInfos.video.videoMeta.duration', 'share_link']]
-
-                df.rename(columns={
-                    'itemInfos.id': 'post_id', 'itemInfos.createTime': 'timestamp', 'itemInfos.text': 'description',
-                    'itemInfos.playCount': 'views', 'itemInfos.diggCount': 'likes',
-                    'itemInfos.commentCount': 'comments', 'itemInfos.shareCount': 'shares',
-                    'itemInfos.video.videoMeta.duration': 'duration_secs', 'share_link': 'video_url'}, inplace=True)
-
-            elif method == "Keyword":
-                all_dfs = []
-                for kw in keywords:
-                    posts = client.tiktok.full_keyword_search(keyword=kw, period=period).data
-                    df_temp = pd.json_normalize(posts)[[
-                        'aweme_info.aweme_id', 'aweme_info.create_time', 'aweme_info.desc',
-                        'aweme_info.author.follower_count',
-                        'aweme_info.statistics.play_count', 'aweme_info.statistics.digg_count',
-                        'aweme_info.statistics.comment_count', 'aweme_info.statistics.share_count',
-                        'aweme_info.statistics.collect_count', 'aweme_info.video.duration', 'aweme_info.share_url']]
-                    all_dfs.append(df_temp)
-
-                df = pd.concat(all_dfs, ignore_index=True)
-
-                df.rename(columns={
-                    'aweme_info.aweme_id': 'post_id', 'aweme_info.create_time': 'timestamp', 'aweme_info.desc': 'description',
-                    'aweme_info.author.follower_count': 'follower_count',
-                    'aweme_info.statistics.play_count': 'views', 'aweme_info.statistics.digg_count': 'likes',
-                    'aweme_info.statistics.comment_count': 'comments', 'aweme_info.statistics.share_count': 'shares',
-                    'aweme_info.statistics.collect_count': 'favorites', 'aweme_info.video.duration': 'duration_secs',
-                    'aweme_info.share_url': 'video_url'}, inplace=True)
-
-                df['follower_count'] = df['follower_count'].replace(0, np.nan)
-                df['virality'] = df['views'] / df['follower_count']
-                df['virality'] = df['virality'].fillna(0).round(2)
-                cols = list(df.columns)
-                cols.insert(3, cols.pop(cols.index('virality')))
-                df = df[cols]
-
-            else:
-                clean_username = username.strip().lstrip("@")
-                result = client.tiktok.user_posts_from_username(username=clean_username, depth=depth)
-                df_raw = pd.DataFrame(result.data)
-                df_list = [post.data for post in df_raw.itertuples(index=False) if isinstance(post.data, dict)]
-                df_expanded = pd.json_normalize(df_list)
-                df = df_expanded[[
-                    'aweme_id', 'create_time', 'desc', 'author.follower_count',
-                    'statistics.play_count', 'statistics.digg_count', 'statistics.comment_count',
-                    'statistics.share_count', 'statistics.collect_count', 'video.duration', 'share_url']]
-
-                df.rename(columns={
-                    'aweme_id': 'post_id', 'create_time': 'timestamp', 'desc': 'description',
-                    'author.follower_count': 'follower_count',
-                    'statistics.play_count': 'views', 'statistics.digg_count': 'likes',
-                    'statistics.comment_count': 'comments', 'statistics.share_count': 'shares',
-                    'statistics.collect_count': 'favorites', 'video.duration': 'duration_secs',
-                    'share_url': 'video_url'}, inplace=True)
-
-                df['follower_count'] = df['follower_count'].replace(0, np.nan)
-                df['virality'] = df['views'] / df['follower_count']
-                df['virality'] = df['virality'].fillna(0).round(2)
-                cols = list(df.columns)
-                cols.insert(3, cols.pop(cols.index('virality')))
-                df = df[cols]
-
-            df['timestamp'] = pd.to_datetime(df['timestamp'], unit='s')
-            df['views'] = pd.to_numeric(df['views'], errors='coerce')
-            df['likes'] = pd.to_numeric(df['likes'], errors='coerce')
-
-            # --- View Filter Logic ---
-            if view_filter == "0–50K":
-                df = df[df["views"] <= 50000]
-            elif view_filter == "50K–100K":
-                df = df[(df["views"] > 50000) & (df["views"] <= 100000)]
-            elif view_filter == "100K–500K":
-                df = df[(df["views"] > 100000) & (df["views"] <= 500000)]
-            elif view_filter == "500K–1M":
-                df = df[(df["views"] > 500000) & (df["views"] <= 1000000)]
-            elif view_filter == "1M+":
-                df = df[df["views"] > 1000000]
-
-            # --- Likes Filter Logic ---
-            if like_filter == "0–50K":
-                df = df[df["likes"] <= 50000]
-            elif like_filter == "50K–100K":
-                df = df[(df["likes"] > 50000) & (df["likes"] <= 100000)]
-            elif like_filter == "100K–500K":
-                df = df[(df["likes"] > 100000) & (df["likes"] <= 500000)]
-            elif like_filter == "500K–1M":
-                df = df[(df["likes"] > 500000) & (df["likes"] <= 1000000)]
-            elif like_filter == "1M+":
-                df = df[df["likes"] > 1000000]
-
-            st.session_state.scraped_df = df
-            st.success(f"✅ Scraped {len(df)} posts successfully.")
-            st.dataframe(df.head(10))
-
-        except Exception as e:
-            st.error(f"⚠️ Error: ENTER A VALID TIKTOK USERNAME. {e}")
-
-# Download buttons
-if st.session_state.scraped_df is not None:
-    df = st.session_state.scraped_df
-    if download_format == "CSV":
-        st.download_button("📌 Download CSV", data=df.to_csv(index=False), file_name="tiktok_data.csv", mime="text/csv")
-    elif download_format == "XLSX":
-        xlsx_buffer = BytesIO()
-        df.to_excel(xlsx_buffer, index=False, engine='openpyxl')
-        st.download_button("📌 Download XLSX", data=xlsx_buffer.getvalue(), file_name="tiktok_data.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    elif download_format == "TXT":
-        txt_data = df.to_string(index=False)
-        st.download_button("📌 Download TXT", data=txt_data, file_name="tiktok_data.txt", mime="text/plain")
-    elif download_format == "HTML":
-        html_data = df.to_html(index=False)
-        st.download_button("📌 Download HTML", data=html_data, file_name="tiktok_data.html", mime="text/html")
-    elif download_format == "JSON":
-        st.download_button("📌 Download JSON", data=df.to_json(orient="records"), file_name="tiktok_data.json", mime="application/json")
-
-st.markdown('<div style="height: 50px;"></div>', unsafe_allow_html=True)
 
 # Footer
-st.markdown(f"""
-    <div class="tiktok-footer">
-        <p>© {datetime.now().year} KOMI Group. All rights reserved.</p>
-        <p>This tool is the property of KOMI Group and intended solely for internal use only. Unauthorized distribution or use outside the organization is strictly prohibited.</p>
+st.markdown("""
+    <div class="footer">
+        © KOMI Group — Internal Use Only
     </div>
 """, unsafe_allow_html=True)
-
-st.markdown('</div>', unsafe_allow_html=True)
