@@ -5,7 +5,7 @@ from datetime import datetime
 # Page config
 st.set_page_config(page_title="Login | KOMI Radar", page_icon="🔐", layout="centered")
 
-# Page-specific CSS with targeted styles
+# Page-specific CSS with minimal, targeted styles
 st.markdown("""
     <style>
         /* Hide sidebar, header, menu */
@@ -13,9 +13,8 @@ st.markdown("""
             display: none;
         }
 
-        /* Reset wrappers to remove empty container at top */
-        .komi-login-container > div:not(.stImage, .stMarkdown, .stCaption, .stAlert, .komi-login-form),
-        [data-testid="stForm"], [data-testid="stBlock"] {
+        /* Reset potential wrappers to remove empty container at top */
+        .komi-login-container > div:not(.stImage, .stMarkdown, .stCaption, .stAlert, .komi-login-form) {
             margin: 0 !important;
             padding: 0 !important;
             border: none !important;
@@ -23,6 +22,16 @@ st.markdown("""
             background: transparent !important;
             min-height: 0 !important;
             height: 0 !important;
+            overflow: hidden !important;
+        }
+
+        [data-testid="stForm"], [data-testid="stBlock"], [data-testid="stVerticalBlock"] {
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+            box-shadow: none !important;
+            background: transparent !important;
+            min-height: 0 !important;
             overflow: hidden !important;
         }
 
@@ -66,14 +75,13 @@ st.markdown("""
 
         /* Form container */
         .komi-login-container .komi-login-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
+            display: block;
             background: #ffffff;
             padding: 1.5rem;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 123, 255, 0.1);
             margin-top: 0 !important;
+            border: 2px solid #007bff; /* Temporary border to confirm form visibility */
         }
 
         /* Form labels */
@@ -82,6 +90,7 @@ st.markdown("""
             color: #2d3748;
             font-weight: 500;
             margin-bottom: 0.4rem;
+            display: block;
         }
 
         /* Form inputs */
@@ -98,6 +107,7 @@ st.markdown("""
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
             width: 100%;
             box-sizing: border-box;
+            margin-bottom: 0.8rem;
         }
 
         .komi-login-container .komi-login-form input:focus,
@@ -124,6 +134,7 @@ st.markdown("""
             transition: transform 0.2s ease, box-shadow 0.3s ease;
             width: 100%;
             cursor: pointer;
+            margin-top: 0.8rem;
         }
 
         .komi-login-container .komi-login-form button:hover,
