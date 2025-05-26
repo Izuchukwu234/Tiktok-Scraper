@@ -73,88 +73,8 @@ def inject_custom_css():
             transform: scale(1.02);
         }
 
-        /* Sidebar Menu Item Styling (Multipage Navigation) */
-        [data-testid="stSidebarNavItems"] div {
-            color: #007bff !important;
-            font-weight: 600 !important;
-            text-transform: uppercase !important;
-            font-size: 14px !important;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: background 0.3s ease, color 0.5s ease;
-        }
-
-        /* Icons for Menu Items */
-        [data-testid="stSidebarNavItems"] div:nth-of-type(1)::before {
-            content: '🔐'; /* Login icon */
-            margin-right: 8px;
-            font-size: 1.1rem;
-        }
-
-        [data-testid="stSidebarNavItems"] div:nth-of-type(2)::before {
-            content: '🏠'; /* Home icon */
-            margin-right: 8px;
-            font-size: 1.1rem;
-        }
-
-        [data-testid="stSidebarNavItems"] div:nth-of-type(3)::before {
-            content: '📊'; /* How We Collect Data icon */
-            margin-right: 8px;
-            font-size: 1.1rem;
-        }
-
-        [data-testid="stSidebarNavItems"] div:nth-of-type(4)::before {
-            content: '📸'; /* Instagram icon */
-            margin-right: 8px;
-            font-size: 1.1rem;
-        }
-
-        [data-testid="stSidebarNavItems"] div:nth-of-type(5)::before {
-            content: '👽'; /* Reddit icon */
-            margin-right: 8px;
-            font-size: 1.1rem;
-        }
-
-        [data-testid="stSidebarNavItems"] div:nth-of-type(6)::before {
-            content: '👻'; /* Snapchat icon */
-            margin-right: 8px;
-            font-size: 1.1rem;
-        }
-
-        [data-testid="stSidebarNavItems"] div:nth-of-type(7)::before {
-            content: '🧵'; /* Threads icon */
-            margin-right: 8px;
-            font-size: 1.1rem;
-        }
-
-        [data-testid="stSidebarNavItems"] div:nth-of-type(8)::before {
-            content: '🎵'; /* TikTok icon */
-            margin-right: 8px;
-            font-size: 1.1rem;
-        }
-
-        [data-testid="stSidebarNavItems"] div:nth-of-type(9)::before {
-            content: '🐦'; /* Twitter icon */
-            margin-right: 8px;
-            font-size: 1.1rem;
-        }
-
-        [data-testid="stSidebarNavItems"] div:nth-of-type(10)::before {
-            content: '📹'; /* YouTube icon */
-            margin-right: 8px;
-            font-size: 1.1rem;
-        }
-
-        [data-testid="stSidebarNavItems"] div:hover {
-            color: #0056b3 !important;
-            background-color: #edf5ff !important;
-        }
-
-        /* Fallback for Other Structures (e.g., <label> */
-        [data-testid="stSidebar"] .stRadio > div > label {
+        /* Sidebar Menu Item Styling */
+        [data-testid="stSidebarNavItems"] div a {
             color: #007bff !important;
             font-weight: 600 !important;
             text-transform: uppercase !important;
@@ -165,70 +85,71 @@ def inject_custom_css():
             padding: 8px 12px;
             border-radius: 8px;
             transition: background 0.3s ease, color 0.3s ease;
+            text-decoration: none !important;
         }
 
-        /* Fallback Icons */
-        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(1)::before {
+        /* Icons for Menu Items */
+        [data-testid="stSidebarNavItems"] div:nth-child(1) a::before {
             content: '🔐'; /* Login */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(2)::before {
+        [data-testid="stSidebarNavItems"] div:nth-child(2) a::before {
             content: '🏠'; /* Home */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(3)::before {
+        [data-testid="stSidebarNavItems"] div:nth-child(3) a::before {
             content: '📊'; /* How We Collect Data */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(4)::before {
+        [data-testid="stSidebarNavItems"] div:nth-child(4) a::before {
             content: '📸'; /* Instagram */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(5)::before {
+        [data-testid="stSidebarNavItems"] div:nth-child(5) a::before {
             content: '👽'; /* Reddit */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(6)::before {
+        [data-testid="stSidebarNavItems"] div:nth-child(6) a::before {
             content: '👻'; /* Snapchat */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(7)::before {
+        [data-testid="stSidebarNavItems"] div:nth-child(7) a::before {
             content: '🧵'; /* Threads */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(8)::before {
+        [data-testid="stSidebarNavItems"] div:nth-child(8) a::before {
             content: '🎵'; /* TikTok */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(9)::before {
+        [data-testid="stSidebarNavItems"] div:nth-child(9) a::before {
             content: '🐦'; /* Twitter */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        [data-testid="stSidebar"] .stRadio > div > label:nth-of-type(10)::before {
+        [data-testid="stSidebarNavItems"] div:nth-child(10) a::before {
             content: '📹'; /* YouTube */
             margin-right: 8px;
             font-size: 1.1rem;
         }
 
-        [data-testid="stSidebar"] .stRadio > div > label:hover {
+        [data-testid="data-testid="stSidebarNavItems"] div a:hover {
             color: #0056b3 !important;
             background-color: #edf5ff !important;
         }
