@@ -114,7 +114,7 @@ if not st.session_state.get("authentication_status"):
 
 # Sidebar
 authenticator.logout("Logout", location="sidebar")
-st.sidebar.markdown("<br>", unsafe_allow_html=True)
+# st.sidebar.markdown("<br>", unsafe_allow_html=True)
 st.sidebar.image("logo_2.png")
 
 # # Logo and title
