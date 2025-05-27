@@ -91,7 +91,7 @@ if 'selected_post' not in st.session_state:
     st.session_state.selected_post = None
 
 # --- HEADER ---
-st.title("Reddit Scraper")
+# st.title("Reddit Scraper")
 st.caption("Powered by KOMI Insights · Built for the Ark Media Team.")
 st.markdown('<div class="header-divider"></div>', unsafe_allow_html=True)
 st.markdown('<div style="height: 50px;"></div>', unsafe_allow_html=True)
