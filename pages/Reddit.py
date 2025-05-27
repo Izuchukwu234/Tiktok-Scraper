@@ -57,7 +57,7 @@ download_format = st.selectbox("Select download format", ["CSV", "XLSX", "TXT", 
 # --- SCRAPE SUBREDDIT POSTS FORM ---
 with st.form("scrape_posts_form"):
     subreddit = st.text_input("Enter subreddit name", placeholder="e.g  'SkincareAddiction'")
-    sort = st.selectbox("Sort by", ["hot", "new", "top", "rising"], index=0)
+    sort = st.selectbox("Sort by", ["hot", "new", "top", "rising"], index=2)
 
     if sort == "top":
         period = st.selectbox("Select period", ["hour", "day", "week", "month", "year", "all"], index=0)
