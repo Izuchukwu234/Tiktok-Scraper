@@ -26,7 +26,7 @@ st.sidebar.image("logo_2.png")
 
 # --- SETTINGS ---
 API_TOKEN = "lSNX5D8FW02vlTX4"
-client = EDClient(API_TOKEN)
+tiktok_client = EDClient(API_TOKEN)
 
 # --- CUSTOM CSS ---
 st.markdown("""
@@ -243,7 +243,7 @@ if submit:
     with st.spinner("⏳ Scraping data... Please wait."):
         try:
             if method == "Hashtag":
-                posts = client.tiktok.full_hashtag_search(hashtag=hashtag, days=days).data.get("posts", [])
+                posts = tiktok_client.tiktok.full_hashtag_search(hashtag=hashtag, days=days).data.get("posts", [])
                 df = pd.json_normalize(posts)[[
                     'itemInfos.id', 'itemInfos.createTime', 'itemInfos.text', 'itemInfos.playCount',
                     'itemInfos.diggCount', 'itemInfos.commentCount', 'itemInfos.shareCount',
@@ -266,7 +266,7 @@ if submit:
             elif method == "Keyword":
                 all_dfs = []
                 for kw in keywords:
-                    posts = client.tiktok.full_keyword_search(keyword=kw, period=period).data
+                    posts = tiktok_client.tiktok.full_keyword_search(keyword=kw, period=period).data
                     df_temp = pd.json_normalize(posts)[[
                         'aweme_info.aweme_id', 'aweme_info.create_time', 'aweme_info.desc',
                         'aweme_info.author.follower_count',
@@ -295,7 +295,7 @@ if submit:
 
             else:
                 clean_username = username.strip().lstrip("@")
-                result = client.tiktok.user_posts_from_username(username=clean_username, depth=depth)
+                result = tiktok_client.tiktok.user_posts_from_username(username=clean_username, depth=depth)
                 df_raw = pd.DataFrame(result.data)
                 df_list = [post.data for post in df_raw.itertuples(index=False) if isinstance(post.data, dict)]
                 df_expanded = pd.json_normalize(df_list)
