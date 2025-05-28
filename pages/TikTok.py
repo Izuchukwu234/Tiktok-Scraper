@@ -377,6 +377,6 @@ current_year = datetime.now().year
 st.markdown(f"""
     <div class="footer">
         <p>© {current_year} KOMI Group. All rights reserved.</p>
-        <p>This tool is the property of KOMI Group and intended solely for internal use only. Unauthorized distribution or use outside the organization is strictly prohibited.</p>
+        <p>This tool is the property of KOMI Group and intended solely for internal use only. Unauthorised distribution or use outside the organisation is strictly prohibited.</p>
     </div>
 """, unsafe_allow_html=True)
