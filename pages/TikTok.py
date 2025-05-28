@@ -353,7 +353,7 @@ if submit:
             st.dataframe(df.head(10))
 
         except Exception as e:
-            st.error(f"⚠️ Error: ENTER A VALID TIKTOK USERNAME. {e}")
+            st.error(f"⚠️ Error: ENTER A VALID TIKTOK USERNAME.")
 
 if st.session_state.scraped_df is not None:
     df = st.session_state.scraped_df
