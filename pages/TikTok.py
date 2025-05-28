@@ -276,6 +276,7 @@ if submit:
                     all_dfs.append(df_temp)
 
                 df = pd.concat(all_dfs, ignore_index=True)
+                df = df.copy()
 
                 df.rename(columns={
                     'aweme_info.aweme_id': 'post_id', 'aweme_info.create_time': 'timestamp', 'aweme_info.desc': 'description',
@@ -302,6 +303,7 @@ if submit:
                     'aweme_id', 'create_time', 'desc', 'author.follower_count',
                     'statistics.play_count', 'statistics.digg_count', 'statistics.comment_count',
                     'statistics.share_count', 'statistics.collect_count', 'video.duration', 'share_url']]
+                df = df.copy()
 
                 df.rename(columns={
                     'aweme_id': 'post_id', 'create_time': 'timestamp', 'desc': 'description',
