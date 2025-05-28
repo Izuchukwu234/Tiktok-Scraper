@@ -318,7 +318,7 @@ if submit:
                 cols.insert(3, cols.pop(cols.index('virality')))
                 df = df[cols]
 
-            df['timestamp'] = pd.to_datetime(df['timestamp'], unit='s')
+            df['timestamp'] = pd.to_datetime(pd.to_numeric(df['timestamp'], errors='coerce'), unit='s')
             df['views'] = pd.to_numeric(df['views'], errors='coerce')
             df['likes'] = pd.to_numeric(df['likes'], errors='coerce')
 
