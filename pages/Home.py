@@ -129,8 +129,8 @@ st.markdown("""
     <p>A unified platform to extract social media content from various platforms like:</p>
     <ul>
         <li>TikTok</li>
-        <li>Reddit (Development of the app ongoing 😊)</li>
-        <li>Instagram 🕐</li>
+        <li>Reddit</li>
+        <li>Instagram (Development of the app ongoing 😊)</li>
         <li>YouTube 🕐</li>
         <li>Threads 🕐</li>
         <li>Snapchat 🕐</li>
