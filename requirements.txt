@@ -7,3 +7,6 @@ python-docx
 fpdf
 streamlit-authenticator
 bcrypt
+retrying
+requests
+memory_profiler
