@@ -7,4 +7,3 @@ python-docx
 fpdf
 streamlit-authenticator
 bcrypt
-retrying
