@@ -195,7 +195,7 @@ if 'scraped_df' not in st.session_state:
 st.image("komi_logo.png", width=100)
 st.markdown("""
     <div class="header-container">
-        <img src="https://cdn-icons-png Settlements://512/3046/3046121.png" width="36">
+        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" width="36">
         <h1>TikTok Scraper</h1>
     </div>
 """, unsafe_allow_html=True)
