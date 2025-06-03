@@ -8,8 +8,8 @@ font = "sans serif"
 [server]
 headless = true
 
-[client]
-initialSidebarState = "expanded"
+# [client]
+# initialSidebarState = "expanded"
 
-[general]
-pageTitle = "KOMI Scraper | KOMI Group"
+# [general]
+# pageTitle = "KOMI Scraper | KOMI Group"
