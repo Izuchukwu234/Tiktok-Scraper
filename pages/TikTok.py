@@ -16,8 +16,8 @@ authenticator = get_authenticator()
 
 # Check login status
 if not st.session_state.get("authentication_status"):
-    st.warning(" Please log in first.")
-    st.stop()
+     st.warning(" Please log in first.")
+     st.stop()
 
 # --- Show logout in sidebar ---
 authenticator.logout("Logout", location="sidebar")
@@ -195,7 +195,7 @@ if 'scraped_df' not in st.session_state:
 st.image("komi_logo.png", width=100)
 st.markdown("""
     <div class="header-container">
-        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" width="36">
+        <img src="https://cdn-icons-png Settlements://512/3046/3046121.png" width="36">
         <h1>TikTok Scraper</h1>
     </div>
 """, unsafe_allow_html=True)
@@ -263,6 +263,18 @@ if submit:
                     'itemInfos.commentCount': 'comments', 'itemInfos.shareCount': 'shares',
                     'itemInfos.video.videoMeta.duration': 'duration_secs', 'share_link': 'video_url'}, inplace=True)
 
+                # Calculate sharability and commentability
+                df['sharability'] = df['shares'] / df['views']
+                df['sharability'] = df['sharability'].fillna(0).round(4)
+                df['commentability'] = df['comments'] / df['views']
+                df['commentability'] = df['commentability'].fillna(0).round(4)
+
+                # Reorder columns to place sharability and commentability at positions 4 and 5
+                cols = list(df.columns)
+                cols.insert(3, cols.pop(cols.index('sharability')))
+                cols.insert(4, cols.pop(cols.index('commentability')))
+                df = df[cols]
+
             elif method == "Keyword":
                 all_dfs = []
                 for kw in keywords:
@@ -289,8 +301,18 @@ if submit:
                 df['follower_count'] = df['follower_count'].replace(0, np.nan)
                 df['virality'] = df['views'] / df['follower_count']
                 df['virality'] = df['virality'].fillna(0).round(2)
+
+                # Calculate sharability and commentability
+                df['sharability'] = df['shares'] / df['views']
+                df['sharability'] = df['sharability'].fillna(0).round(4)
+                df['commentability'] = df['comments'] / df['views']
+                df['commentability'] = df['commentability'].fillna(0).round(4)
+
+                # Reorder columns to place virality at position 4, sharability at 5, and commentability at 6
                 cols = list(df.columns)
                 cols.insert(3, cols.pop(cols.index('virality')))
+                cols.insert(4, cols.pop(cols.index('sharability')))
+                cols.insert(5, cols.pop(cols.index('commentability')))
                 df = df[cols]
 
             else:
@@ -316,8 +338,18 @@ if submit:
                 df['follower_count'] = df['follower_count'].replace(0, np.nan)
                 df['virality'] = df['views'] / df['follower_count']
                 df['virality'] = df['virality'].fillna(0).round(2)
+
+                # Calculate sharability and commentability
+                df['sharability'] = df['shares'] / df['views']
+                df['sharability'] = df['sharability'].fillna(0).round(4)
+                df['commentability'] = df['comments'] / df['views']
+                df['commentability'] = df['commentability'].fillna(0).round(4)
+
+                # Reorder columns to place virality at position 4, sharability at 5, and commentability at 6
                 cols = list(df.columns)
                 cols.insert(3, cols.pop(cols.index('virality')))
+                cols.insert(4, cols.pop(cols.index('sharability')))
+                cols.insert(5, cols.pop(cols.index('commentability')))
                 df = df[cols]
 
             df['timestamp'] = pd.to_datetime(pd.to_numeric(df['timestamp'], errors='coerce'), unit='s')
@@ -353,7 +385,7 @@ if submit:
             st.dataframe(df.head(10))
 
         except Exception as e:
-            st.error(f"⚠️ Error: ENTER A VALID TIKTOK USERNAME.")
+            st.error(f"⚠️ Error: {str(e)}")
 
 if st.session_state.scraped_df is not None:
     df = st.session_state.scraped_df
@@ -373,6 +405,22 @@ if st.session_state.scraped_df is not None:
         st.download_button("📌 Download JSON", data=df.to_json(orient="records"), file_name="tiktok_data.json", mime="application/json")
 
 st.markdown('<div style="height: 50px;"></div>', unsafe_allow_html=True)
+
+# --- METRICS NOTE ---
+st.markdown("""
+    <div style="background-color: #f8fafc; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.05); margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 600; color: #1a1a1a; margin-bottom: 1rem;">Understanding Key Metrics</h3>
+        <p style="font-size: 0.95rem; color: #4a5568; line-height: 1.5; margin-bottom: 0.75rem;">
+            <span style="color: #007bff; font-weight: 600;">📈 Virality:</span> Measures a post's reach relative to the creator's audience (views ÷ follower count). Higher values signal stronger viral potential.
+        </p>
+        <p style="font-size: 0.95rem; color: #4a5568; line-height: 1.5; margin-bottom: 0.75rem;">
+            <span style="color: #28a745; font-weight: 600;">🔄 Sharability:</span> Gauges the likelihood of sharing (shares ÷ views). Elevated values indicate resonant, share-worthy content.
+        </p>
+        <p style="font-size: 0.95rem; color: #4a5568; line-height: 1.5;">
+            <span style="color: #d97706; font-weight: 600;">💬 Commentability:</span> Reflects engagement via interaction (comments ÷ views). Higher values suggest discussion-driven content.
+        </p>
+    </div>
+""", unsafe_allow_html=True)
 
 # --- FOOTER ---
 current_year = datetime.now().year
