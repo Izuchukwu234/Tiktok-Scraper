@@ -220,8 +220,9 @@ with st.form("scraper_form"):
         period = st.selectbox("Select period (days to look back)", ['0', '1', '7', '30', '90', '180'])
         keywords = [kw.strip() for kw in keyword_input.split(",") if kw.strip()]
     else:
-        username = st.text_input("Enter a valid TikTok username")
+        username_input = st.text_area("Enter TikTok username(s), separated by commas (with or without @)")
         depth = st.slider("Scrape depth (higher = more posts)", 1, 100, 20)
+        usernames = [un.strip().lstrip("@") for un in username_input.split(",") if un.strip()]
 
     view_filter = st.selectbox("Filter by views", [
         "All views", "0–50K", "50K–100K", "100K–500K", "500K–1M", "1M+"
@@ -238,8 +239,6 @@ with st.form("scraper_form"):
     )
     
     submit = st.form_submit_button("📅 Scrape Data")
-
-# ... [Previous code remains the same until the "Username" block] ...
 
 if submit:
     with st.spinner("⏳ Scraping data... Please wait."):
