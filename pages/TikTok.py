@@ -239,6 +239,8 @@ with st.form("scraper_form"):
     
     submit = st.form_submit_button("📅 Scrape Data")
 
+# ... [Previous code remains the same until the "Username" block] ...
+
 if submit:
     with st.spinner("⏳ Scraping data... Please wait."):
         try:
@@ -316,41 +318,51 @@ if submit:
                 df = df[cols]
 
             else:
-                clean_username = username.strip().lstrip("@")
-                result = tiktok_client.tiktok.user_posts_from_username(username=clean_username, depth=depth)
-                df_raw = pd.DataFrame(result.data)
-                df_list = [post.data for post in df_raw.itertuples(index=False) if isinstance(post.data, dict)]
-                df_expanded = pd.json_normalize(df_list)
-                df = df_expanded[[
-                    'aweme_id', 'create_time', 'desc', 'author.follower_count',
-                    'statistics.play_count', 'statistics.digg_count', 'statistics.comment_count',
-                    'statistics.share_count', 'statistics.collect_count', 'video.duration', 'share_url']]
-                df = df.copy()
+                all_dfs = []
+                for clean_username in usernames:
+                    result = tiktok_client.tiktok.user_posts_from_username(username=clean_username, depth=depth)
+                    df_raw = pd.DataFrame(result.data)
+                    df_list = [post.data for post in df_raw.itertuples(index=False) if isinstance(post.data, dict)]
+                    df_expanded = pd.json_normalize(df_list)
+                    df_temp = df_expanded[[
+                        'aweme_id', 'create_time', 'desc', 'author.follower_count',
+                        'statistics.play_count', 'statistics.digg_count', 'statistics.comment_count',
+                        'statistics.share_count', 'statistics.collect_count', 'video.duration', 'share_url']]
+                    df_temp = df_temp.copy()
+                    
+                    df_temp.rename(columns={
+                        'aweme_id': 'post_id', 'create_time': 'timestamp', 'desc': 'description',
+                        'author.follower_count': 'follower_count',
+                        'statistics.play_count': 'views', 'statistics.digg_count': 'likes',
+                        'statistics.comment_count': 'comments', 'statistics.share_count': 'shares',
+                        'statistics.collect_count': 'favorites', 'video.duration': 'duration_secs',
+                        'share_url': 'video_url'}, inplace=True)
 
-                df.rename(columns={
-                    'aweme_id': 'post_id', 'create_time': 'timestamp', 'desc': 'description',
-                    'author.follower_count': 'follower_count',
-                    'statistics.play_count': 'views', 'statistics.digg_count': 'likes',
-                    'statistics.comment_count': 'comments', 'statistics.share_count': 'shares',
-                    'statistics.collect_count': 'favorites', 'video.duration': 'duration_secs',
-                    'share_url': 'video_url'}, inplace=True)
+                    # Add pagename column with the current username
+                    df_temp['pagename'] = clean_username
 
-                df['follower_count'] = df['follower_count'].replace(0, np.nan)
-                df['virality'] = df['views'] / df['follower_count']
-                df['virality'] = df['virality'].fillna(0).round(2)
+                    df_temp['follower_count'] = df_temp['follower_count'].replace(0, np.nan)
+                    df_temp['virality'] = df_temp['views'] / df_temp['follower_count']
+                    df_temp['virality'] = df_temp['virality'].fillna(0).round(2)
 
-                # Calculate sharability and commentability
-                df['sharability'] = df['shares'] / df['views']
-                df['sharability'] = df['sharability'].fillna(0).round(4)
-                df['commentability'] = df['comments'] / df['views']
-                df['commentability'] = df['commentability'].fillna(0).round(4)
+                    # Calculate sharability and commentability
+                    df_temp['sharability'] = df_temp['shares'] / df_temp['views']
+                    df_temp['sharability'] = df_temp['sharability'].fillna(0).round(4)
+                    df_temp['commentability'] = df_temp['comments'] / df_temp['views']
+                    df_temp['commentability'] = df_temp['commentability'].fillna(0).round(4)
 
-                # Reorder columns to place virality at position 4, sharability at 5, and commentability at 6
-                cols = list(df.columns)
-                cols.insert(3, cols.pop(cols.index('virality')))
-                cols.insert(4, cols.pop(cols.index('sharability')))
-                cols.insert(5, cols.pop(cols.index('commentability')))
-                df = df[cols]
+                    # Reorder columns to place pagename just after post_id, then virality, sharability, and commentability
+                    cols = list(df_temp.columns)
+                    cols.insert(1, cols.pop(cols.index('pagename')))  # Move pagename to position after post_id
+                    cols.insert(4, cols.pop(cols.index('virality')))  # Virality after pagename
+                    cols.insert(5, cols.pop(cols.index('sharability')))  # Sharability after virality
+                    cols.insert(6, cols.pop(cols.index('commentability')))  # Commentability after sharability
+                    df_temp = df_temp[cols]
+                    
+                    all_dfs.append(df_temp)
+
+                # Combine all DataFrames from multiple usernames
+                df = pd.concat(all_dfs, ignore_index=True)
 
             df['timestamp'] = pd.to_datetime(pd.to_numeric(df['timestamp'], errors='coerce'), unit='s')
             df['views'] = pd.to_numeric(df['views'], errors='coerce')
@@ -385,7 +397,7 @@ if submit:
             st.dataframe(df.head(10))
 
         except Exception as e:
-            st.error(f"⚠️ Error: {str(e)}")
+            st.error(f"⚠️ Error: INVALID USERNAME... PLEASE CHECK")
 
 if st.session_state.scraped_df is not None:
     df = st.session_state.scraped_df
