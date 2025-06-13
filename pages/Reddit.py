@@ -65,17 +65,17 @@ with st.form("scrape_posts_form"):
         period = "day"
 
     min_comments = st.slider("Minimum number of comments", 0, 500, 0)
+    max_posts = st.slider("Maximum number of posts to scrape", 10, 250, 100, step=10)
 
     submit_posts = st.form_submit_button("📅 Scrape Posts")
 
 if submit_posts:
     with st.spinner("Scraping posts..."):
         try:
-            max_pages = 10  # 🔁 Adjust as needed (10 pages = ~250 posts)
             next_cursor = None
             all_posts = []
 
-            for i in range(max_pages):
+            while len(all_posts) < max_posts:
                 result = client.reddit.subreddit_posts(
                     name=subreddit,
                     sort=sort,
@@ -83,7 +83,7 @@ if submit_posts:
                     cursor=next_cursor
                 )
 
-                posts = result.data['posts']
+                posts = result.data.get('posts', [])
                 if not posts:
                     break
 
@@ -92,6 +92,7 @@ if submit_posts:
                 if not next_cursor:
                     break
 
+            all_posts = all_posts[:max_posts]  # Trim to exact number requested
             df_raw = pd.DataFrame(all_posts)
 
             # Ensure 'score' exists for renaming
@@ -132,7 +133,7 @@ if submit_posts:
             st.session_state.selected_post = None
 
             st.success(f"✅ Scraped {len(df_clean)} posts from r/{subreddit}")
-            st.dataframe(df_clean)  # show all cleaned columns
+            st.dataframe(df_clean)
 
         except Exception as e:
             st.error("⚠️ INVALID SUBREDDIT NAME.. PLEASE CROSS-CHECK")
