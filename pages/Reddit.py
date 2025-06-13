@@ -65,7 +65,7 @@ with st.form("scrape_posts_form"):
         period = "day"
 
     min_comments = st.slider("Minimum number of comments", 0, 500, 0)
-    max_posts = st.slider("Maximum number of posts to scrape", 10, 250, 100, step=10)
+    max_posts = st.slider("Maximum number of posts to scrape", 10, 500, 100, step=10)
 
     submit_posts = st.form_submit_button("📅 Scrape Posts")
 
