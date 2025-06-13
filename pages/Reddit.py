@@ -71,10 +71,28 @@ with st.form("scrape_posts_form"):
 if submit_posts:
     with st.spinner("Scraping posts..."):
         try:
-            result = client.reddit.subreddit_posts(name=subreddit, sort=sort, period=period)
-            posts = result.data['posts']
-            posts_data = [post['data'] for post in posts]
-            df_raw = pd.DataFrame(posts_data)
+            max_pages = 10  # 🔁 Adjust as needed (10 pages = ~250 posts)
+            next_cursor = None
+            all_posts = []
+
+            for i in range(max_pages):
+                result = client.reddit.subreddit_posts(
+                    name=subreddit,
+                    sort=sort,
+                    period=period,
+                    cursor=next_cursor
+                )
+
+                posts = result.data['posts']
+                if not posts:
+                    break
+
+                all_posts.extend([post['data'] for post in posts])
+                next_cursor = result.data.get("nextCursor")
+                if not next_cursor:
+                    break
+
+            df_raw = pd.DataFrame(all_posts)
 
             # Ensure 'score' exists for renaming
             if 'score' not in df_raw.columns:
