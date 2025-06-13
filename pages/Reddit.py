@@ -287,10 +287,6 @@ reddit = praw.Reddit(
 # --- SESSION STATE INIT ---
 if 'posts_df' not in st.session_state:
     st.session_state.posts_df = None
-if 'comments_df' not in st.session_state:
-    st.session_state.comments_df = None
-if 'selected_post' not in st.session_state:
-    st.session_state.selected_post = None
 if 'keyword_posts_df' not in st.session_state:
     st.session_state.keyword_posts_df = None
 
@@ -381,8 +377,6 @@ if scrape_method == "Subreddit":
 
                 # Save and display
                 st.session_state.posts_df = df_clean
-                st.session_state.comments_df = None
-                st.session_state.selected_post = None
                 st.session_state.keyword_posts_df = None
 
                 st.success(f"✅ Scraped {len(df_clean)} posts from r/{subreddit}")
@@ -462,8 +456,6 @@ elif scrape_method == "Keyword Search":
 
                         st.session_state.keyword_posts_df = df_clean
                         st.session_state.posts_df = None
-                        st.session_state.comments_df = None
-                        st.session_state.selected_post = None
 
                         st.success(f"✅ Scraped {len(df_clean)} posts for keywords: {', '.join(keywords)}")
                         st.dataframe(df_clean)
@@ -473,56 +465,6 @@ elif scrape_method == "Keyword Search":
 
             except Exception as e:
                 st.error(f"⚠️ Error during keyword search: {e}")
-
-# --- SELECT POST TO SCRAPE COMMENTS ---
-if st.session_state.posts_df is not None or st.session_state.keyword_posts_df is not None:
-    posts_df = st.session_state.posts_df if st.session_state.posts_df is not None else st.session_state.keyword_posts_df
-    post_titles = posts_df['description'] + " (" + posts_df['num_comments'].astype(str) + " comments)"
-    selected_idx = st.selectbox("Select a post to scrape comments", options=post_titles)
-
-    if st.button("📅 Scrape Comments"):
-        with st.spinner("Scraping comments..."):
-            try:
-                selected_post = posts_df.iloc[post_titles.tolist().index(selected_idx)]
-                permalink = selected_post['permalink']
-                response = client.reddit.post_comments(permalink=permalink)
-                comments_data = response.data.get("comments", [])
-
-                if not comments_data:
-                    st.warning("No comments found for this post.")
-                    st.session_state.comments_df = None
-                else:
-                    flat_comments = [c['data'] for c in comments_data if 'data' in c]
-                    df_comments = pd.DataFrame(flat_comments)
-
-                    expected_cols = ['id', 'created_utc', 'author', 'body', 'score', 'parent_id', 'link_id', 'depth']
-                    available_cols = [col for col in expected_cols if col in df_comments.columns]
-                    df_comments = df_comments[available_cols]
-
-                    rename_map = {
-                        'id': 'comment_id',
-                        'created_utc': 'timestamp',
-                        'body': 'comment_text',
-                        'score': 'upvotes'
-                    }
-                    rename_map = {k: v for k, v in rename_map.items() if k in df_comments.columns}
-                    df_comments.rename(columns=rename_map, inplace=True)
-
-                    if 'timestamp' in df_comments.columns:
-                        df_comments['timestamp'] = pd.to_datetime(df_comments['timestamp'], unit='s')
-                    if 'comment_text' in df_comments.columns:
-                        df_comments['comment_text'] = df_comments['comment_text'].fillna("").str.strip()
-                    if 'upvotes' in df_comments.columns:
-                        df_comments['upvotes'] = pd.to_numeric(df_comments['upvotes'], errors='coerce')
-
-                    st.session_state.comments_df = df_comments
-                    st.session_state.selected_post = selected_post
-
-                    st.success(f"✅ Scraped {len(df_comments)} comments for the post.")
-                    st.dataframe(df_comments.head(10))
-
-            except Exception as e:
-                st.error("⚠️ Error scraping comments")
 
 # --- DOWNLOAD BUTTONS ---
 if st.session_state.posts_df is not None:
@@ -560,24 +502,6 @@ if st.session_state.keyword_posts_df is not None:
         st.download_button("📌 Download Keyword Posts HTML", data=html, file_name="reddit_keyword_posts.html", mime="text/html")
     elif download_format == "JSON":
         st.download_button("📌 Download Keyword Posts JSON", data=df.to_json(orient="records"), file_name="reddit_keyword_posts.json", mime="application/json")
-
-if st.session_state.comments_df is not None:
-    df = st.session_state.comments_df
-    st.markdown(f"#### Download Comments Data (Post: {st.session_state.selected_post['description'][:50]}...)")
-    if download_format == "CSV":
-        st.download_button("📌 Download Comments CSV", data=df.to_csv(index=False), file_name="reddit_comments.csv", mime="text/csv")
-    elif download_format == "XLSX":
-        buf = BytesIO()
-        df.to_excel(buf, index=False, engine='openpyxl')
-        st.download_button("📌 Download Comments XLSX", data=buf.getvalue(), file_name="reddit_comments.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    elif download_format == "TXT":
-        txt = df.to_string(index=False)
-        st.download_button("📌 Download Comments TXT", data=txt, file_name="reddit_comments.txt", mime="text/plain")
-    elif download_format == "HTML":
-        html = df.to_html(index=False)
-        st.download_button("📌 Download Comments HTML", data=html, file_name="reddit_comments.html", mime="text/html")
-    elif download_format == "JSON":
-        st.download_button("📌 Download Comments JSON", data=df.to_json(orient="records"), file_name="reddit_comments.json", mime="application/json")
 
 st.markdown('<div style="height: 50px;"></div>', unsafe_allow_html=True)
 
