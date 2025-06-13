@@ -10,3 +10,4 @@ bcrypt
 retrying
 requests
 memory_profiler
+praw
