@@ -281,16 +281,16 @@ with st.form("scraper_form"):
         keyword_input = st.text_area("Enter keyword(s), separated by commas")
         keywords = [kw.strip() for kw in keyword_input.split(",") if kw.strip()]
         sort = st.selectbox("Select sort order", ["RECENT", "RELEVANCE"])
-        fetch_limit = st.slider("Number of posts to scrape (max 500)", 1, 500, 50)
+        fetch_limit = st.slider("Number of posts to scrape (max 100)", 1, 100, 50)
     elif method == "By Username":
         username_input = st.text_area("Enter Facebook username(s), separated by commas (with or without @)")
         usernames = [un.strip().lstrip("@") for un in username_input.split(",") if un.strip()]
-        fetch_limit = st.slider("Number of posts to scrape (max 500)", 1, 500, 50)
-        post_filter = st.selectbox("Filter by post type", ["All Posts", "Picture Only (Views = 0)"])
+        fetch_limit = st.slider("Number of posts to scrape (max 100)", 1, 100, 50)
+        post_filter = st.selectbox("Filter by post type", ["All Posts", "Picture Only"])
     else:  # By Username Reels
         username_input = st.text_area("Enter Facebook username(s), separated by commas (with or without @)")
         usernames = [un.strip().lstrip("@") for un in username_input.split(",") if un.strip()]
-        fetch_limit = st.slider("Number of posts to scrape (max 500)", 1, 500, 50)
+        fetch_limit = st.slider("Number of posts to scrape (max 100)", 1, 100, 50)
 
     # Views and Likes Filters (for By Keywords and By Username Reels)
     if method in ["By Keywords", "By Username Reels"]:
