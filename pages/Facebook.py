@@ -588,7 +588,7 @@ if submit:
                 df['likes'] = pd.to_numeric(df['likes'], errors='coerce')
 
                 # Apply Picture Only Filter for By Username
-                if method == "By Username" and post_filter == "Picture Only (Views = 0)":
+                if method == "By Username" and post_filter == "Picture Only":
                     df = df[df["views"] == 0]
 
                 # Apply Views and Likes Filters for By Keywords and By Username Reels
